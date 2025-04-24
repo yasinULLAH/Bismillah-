@@ -6,107 +6,148 @@
     <title>Start Your Day with the Name of Allah (ﷻ)</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --background-color: #ecf0f1;
-            --text-color: #34495e;
+            --primary-color: #1a2a4a; /* Deeper blue */
+            --secondary-color: #28a745; /* Green */
+            --accent-color: #ffc107; /* Amber */
+            --background-color: #f8f9fa; /* Lighter gray */
+            --text-color: #343a40; /* Dark gray */
             --card-bg: #ffffff;
             --border-radius: 8px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --input-bg: #e9ecef;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
         }
 
-        .container {
-            width: 100%;
-            max-width: 600px;
+        .main-container {
+            max-width: 700px;
+            margin: 15px auto;
             background-color: var(--card-bg);
-            padding: 25px;
+            padding: 20px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            margin-bottom: 20px;
         }
 
         h1 {
             text-align: center;
             color: var(--primary-color);
-            margin-bottom: 25px;
+            margin-top: 0;
+            margin-bottom: 10px;
             font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        #dateInfo {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6c757d; /* Muted gray */
+            font-size: 0.95em;
+        }
+         #gregorianDate, #hijriDate {
+            display: inline-block;
+            margin: 0 5px;
         }
 
         .card {
-            background-color: #f8f9fa;
-            padding: 15px;
+            background-color: #fff;
+            padding: 15px 20px;
             margin-bottom: 20px;
             border-radius: var(--border-radius);
-            border-left: 5px solid var(--secondary-color);
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .card h2 {
             margin-top: 0;
-            margin-bottom: 5px;
-            color: var(--secondary-color);
+            margin-bottom: 10px;
+            color: var(--primary-color);
             font-size: 1.3em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
         }
 
         .card p {
+            margin-bottom: 5px;
+        }
+        .card p:last-child {
             margin-bottom: 0;
-            font-style: italic;
         }
 
-        .quote-card {
-            border-left-color: #2ecc71; /* Green */
+        .name-card h2 { color: #007bff; } /* Blue */
+        .quote-card h2 { color: var(--secondary-color); } /* Green */
+        .dua-card h2 { color: #6f42c1; } /* Indigo */
+        .prayer-card h2 { color: #fd7e14; } /* Orange */
+        .interaction-card h2 { color: #17a2b8; } /* Teal */
+        .settings-card h2, .history-card h2 { color: #6c757d; } /* Gray */
+
+        .check-in-section, .notes-section, .settings-section, .history-section {
+            margin-top: 15px;
         }
 
-        .quote-card h2 {
-            color: #27ae60;
-        }
-
-        .check-in-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #checkInButton {
+        button {
             background-color: var(--secondary-color);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 10px 18px;
             font-size: 1em;
             border-radius: var(--border-radius);
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.2s ease;
+            margin: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        #checkInButton:disabled {
+        button:hover:not(:disabled) {
+            background-color: #218838; /* Darker Green */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        button:disabled {
             background-color: #bdc3c7;
             cursor: not-allowed;
+            box-shadow: none;
         }
 
-        #checkInButton:not(:disabled):hover {
-            background-color: #2980b9;
+        #checkInButton {
+            background-color: #007bff; /* Blue */
+        }
+        #checkInButton:hover:not(:disabled) {
+            background-color: #0056b3;
         }
 
-        #streak {
+        #saveNoteButton {
+            background-color: #17a2b8; /* Teal */
+            display: block;
+            margin: 10px auto 0 auto;
+        }
+        #saveNoteButton:hover {
+            background-color: #117a8b;
+        }
+
+        #toggleSettingsButton, #toggleHistoryButton {
+            background-color: #6c757d; /* Gray */
+            display: inline-block;
+            width: calc(50% - 10px);
+        }
+        #toggleSettingsButton:hover, #toggleHistoryButton:hover {
+            background-color: #5a6268;
+        }
+
+        #streakStatus {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
             font-weight: bold;
             color: var(--primary-color);
-            margin-left: 10px;
         }
 
-        .notes-section textarea {
+        textarea, input[type="number"], input[type="search"] {
             width: 100%;
-            min-height: 100px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: var(--border-radius);
@@ -114,44 +155,47 @@
             margin-bottom: 10px;
             font-family: inherit;
             font-size: 1em;
+            background-color: var(--input-bg);
         }
-
-        .notes-section button {
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        input[type="number"] {
+             width: calc(50% - 5px); /* Adjust width for inline display */
+             display: inline-block;
+        }
+        .settings-card label {
             display: block;
-            margin: 0 auto;
+            margin-bottom: 5px;
+            font-weight: 500;
         }
 
-        .notes-section button:hover {
-            background-color: #27ae60;
+        #prayerTimes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
         }
-
-        .history-section {
-            margin-top: 20px;
+        #prayerTimes span {
+            background-color: #e9ecef;
+            padding: 8px;
+            border-radius: 4px;
             text-align: center;
         }
-
-        #toggleHistoryButton {
-            background-color: #9b59b6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 15px;
+        #prayerTimes strong {
+            display: block;
+            font-size: 0.9em;
+            color: #495057;
         }
 
-        #toggleHistoryButton:hover {
-            background-color: #8e44ad;
+        #qiblaDirection {
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #fd7e14;
         }
 
         #historyContent {
@@ -160,8 +204,8 @@
             background-color: #f8f9fa;
             padding: 15px;
             border-radius: var(--border-radius);
-            text-align: left;
             border: 1px solid #eee;
+            margin-top: 10px;
         }
 
         .history-entry {
@@ -169,479 +213,1194 @@
             padding-bottom: 10px;
             border-bottom: 1px dashed #ccc;
         }
+        .history-entry:last-child { border-bottom: none; margin-bottom: 0; }
+        .history-entry strong { color: var(--primary-color); }
+        .history-entry .note { margin-top: 5px; white-space: pre-wrap; word-wrap: break-word; background-color: #e9ecef; padding: 5px; border-radius: 4px;}
 
-        .history-entry:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
+        #historySearchInput {
+            margin-bottom: 15px;
         }
 
-        .history-entry strong {
+        .settings-card h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        #exportDataButton, #importDataButton {
+            background-color: #ffc107; /* Amber */
+            color: #343a40;
+        }
+         #exportDataButton:hover, #importDataButton:hover {
+            background-color: #e0a800;
+        }
+
+
+        .hidden { display: none; }
+
+        /* Simple Tabs */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .tab-link {
+            padding: 10px 15px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.95em;
+            margin-bottom: -2px; /* Overlap border */
+            border-bottom: 2px solid transparent;
+            color: #6c757d;
+        }
+        .tab-link.active {
+            border-bottom-color: var(--primary-color);
+            font-weight: 600;
             color: var(--primary-color);
         }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        .history-entry .note {
-            margin-top: 5px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .main-container { padding: 15px; }
+            h1 { font-size: 1.6em; }
+            button { padding: 10px 15px; font-size: 0.95em; }
+             input[type="number"] { width: 100%; display: block; margin-bottom: 10px; }
+             .tabs { justify-content: space-around;}
+             .tab-link { padding: 8px 10px; font-size: 0.9em;}
+             #toggleSettingsButton, #toggleHistoryButton { width: 100%; margin-bottom: 10px;}
         }
 
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Start your day with the Name of Allah (ﷻ)</h1>
-
-        <div id="dailyNameCard" class="card">
-            <h2 id="allahName"></h2>
-            <p id="allahNameMeaning"></p>
+    <div class="main-container">
+        <h1>Start Your Day with the Name of Allah (ﷻ)</h1>
+        <div id="dateInfo">
+            <span id="gregorianDate"></span> | <span id="hijriDate"></span>
         </div>
 
-        <div id="dailyQuoteCard" class="card quote-card">
-            <h2 id="quoteType"></h2>
-            <p id="quoteText"></p>
-        </div>
-
-        <div class="check-in-section">
-            <button id="checkInButton">Mark Day Started</button>
-            <span id="streakStatus">Streak: <span id="streak">0</span> days</span>
-        </div>
-
-        <div class="notes-section">
-            <h2>Daily Reflection</h2>
-            <textarea id="dailyNote" placeholder="Write your reflection for today..."></textarea>
-            <button id="saveNoteButton">Save Note</button>
-        </div>
-
-    </div>
-
-    <div class="history-section container">
-         <button id="toggleHistoryButton">Show/Hide History</button>
-         <div id="historyContent" class="hidden">
-             <h2>Past Entries</h2>
-             <div id="historyEntries">Loading history...</div>
+        <div class="tabs">
+             <button class="tab-link active" onclick="openTab(event, 'tab-main')">Daily</button>
+             <button class="tab-link" onclick="openTab(event, 'tab-prayer')">Timings</button>
+             <button class="tab-link" onclick="openTab(event, 'tab-actions')">Actions</button>
          </div>
+
+         <div id="tab-main" class="tab-content active">
+            <div id="dailyNameCard" class="card name-card">
+                <h2 id="allahName">Loading...</h2>
+                <p id="allahNameMeaning"></p>
+            </div>
+
+            <div id="dailyQuoteCard" class="card quote-card">
+                <h2 id="quoteType">Loading...</h2>
+                <p id="quoteText"></p>
+            </div>
+
+            <div id="dailyDuaCard" class="card dua-card">
+                <h2>Dua of the Day</h2>
+                <p id="duaText">Loading...</p>
+            </div>
+        </div>
+
+        <div id="tab-prayer" class="tab-content">
+             <div id="prayerTimeCard" class="card prayer-card">
+                 <h2>Prayer Times</h2>
+                 <p><small>(Requires Location set in Settings)</small></p>
+                 <div id="prayerTimes">Please set location in Settings.</div>
+                 <h2 style="margin-top: 20px;">Qibla Direction</h2>
+                 <div id="qiblaDirection">Please set location in Settings.</div>
+                 <p style="margin-top: 15px; font-size: 0.8em; text-align: center;">Calculation method: <span id="prayerMethodDisplay">MWL</span></p>
+            </div>
+        </div>
+
+         <div id="tab-actions" class="tab-content">
+            <div class="card interaction-card">
+                 <div class="check-in-section">
+                     <h2>Daily Check-in</h2>
+                     <button id="checkInButton">Mark Day Started</button>
+                     <span id="streakStatus">Streak: <span id="streak">0</span> days</span>
+                 </div>
+
+                 <div class="notes-section">
+                     <h2>Daily Reflection</h2>
+                     <textarea id="dailyNote" placeholder="Write your reflection for today..."></textarea>
+                     <button id="saveNoteButton">Save Note</button>
+                 </div>
+             </div>
+         </div>
+
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="toggleSettingsButton">Settings & Data</button>
+            <button id="toggleHistoryButton">History</button>
+        </div>
+
+
+        <div id="settingsSection" class="card settings-card hidden">
+             <h2>Settings</h2>
+             <label for="latitude">Latitude:</label>
+             <input type="number" id="latitude" step="any" placeholder="e.g., 33.7">
+             <label for="longitude">Longitude:</label>
+             <input type="number" id="longitude" step="any" placeholder="e.g., 73.1">
+             <button id="saveSettingsButton" style="background-color: #007bff;">Save Location</button>
+             <p style="font-size: 0.9em; margin-top:10px;">Prayer times based on saved location. Default method: MWL (Muslim World League).</p>
+             <p style="font-size: 0.8em;">(Using PrayTimes.js v2.3 by Hamid Zarrabi-Zadeh)</p>
+
+              <h3>Data Management</h3>
+              <button id="exportDataButton">Export Data</button>
+              <input type="file" id="importFileInput" accept=".json" style="display: none;">
+              <button id="importDataButton">Import Data</button>
+              <p style="font-size: 0.8em;">Exports/imports check-ins, notes, streak, and location.</p>
+        </div>
+
+        <div id="historySection" class="card history-card hidden">
+             <h2>History</h2>
+             <input type="search" id="historySearchInput" placeholder="Search notes or dates (YYYY-MM-DD)...">
+             <div id="historyContent">
+                 <div id="historyEntries">Loading history...</div>
+             </div>
+        </div>
+
     </div>
 
     <script>
-        const DB_NAME = 'DailyBlessingsDB';
+        // --- START: PrayTimes.js v2.3 ---
+        //---------------- ప్రేయర్ టైమ్స్ V2.3 క్యాలిక్యులేషన్ లైబ్రరీ ----------------
+        //ప్రోగ్రామ్ చేసి అందజేసిన వారు: హమీద్ జర్రాబి-జాదే (టర్కీ)
+        //అనువాదం: మౌలానా డాక్టర్ అబ్దుర్రహీం మదనీ గారు, ఇండియా
+        // Website: PrayTimes.org
+        // USNO AA Equations: http://docs.kde.org/stable/en/kdeedu/kstars/ai-usno-sun.html
+        //ముఖ్య గమనిక: ఈ లైబ్రరీ సౌర సమయాలను లెక్కిస్తుంది తప్ప చంద్రునికి సంబంధించిన ఇస్లామిక్ నెలల గురించి తెలియజేయదు.
+        // --- Copyright (C) 2007-2011 Hamid Zarrabi-Zadeh ---
+        //ఇది ఉచిత సాఫ్ట్‌వేర్ లైబ్రరీ; మీరు దీన్ని ఫ్రీ సాఫ్ట్‌వేర్ ఫౌండేషన్ ప్రచురించిన గ్నూ లెస్సర్ జనరల్ పబ్లిక్ లైసెన్స్ నిబంధనల ప్రకారం పునఃపంపిణీ చేయవచ్చు మరియు/లేదా సవరించవచ్చు.
+        //ఇది ఉపయోగకరంగా ఉంటుందనే ఆశతో ఈ లైబ్రరీ పంపిణీ చేయబడింది, అయితే ఎలాంటి వారెంటీ లేకుండా; వ్యాపార లేదా నిర్దిష్ట ప్రయోజనానికి సంబంధించిన సూచిత వారెంటీ కూడా లేకుండా. మరిన్ని వివరాల కోసం గ్నూ లెస్సర్ జనరల్ పబ్లిక్ లైసెన్స్‌ చూడండి.
+        var PrayTimes = function(method) {
+
+            var self = this;
+
+            // ప్రేయర్ టైమ్స్ మెథడ్స్ పేర్లు ------------------------------------------------------
+            var methods = {
+                MWL: {
+                    name: 'Muslim World League',
+                    params: { fajr: 18, isha: 17 } },
+                ISNA: {
+                    name: 'Islamic Society of North America (ISNA)',
+                    params: { fajr: 15, isha: 15 } },
+                Egypt: {
+                    name: 'Egyptian General Authority of Survey',
+                    params: { fajr: 19.5, isha: 17.5 } },
+                Makkah: {
+                    name: 'Umm Al-Qura University, Makkah',
+                    params: { fajr: 18.5, isha: '90 min' } }, // ఫజ్ర్ ఉపవాసానికి 18.5 డిగ్రీలు. ఇషా కోసం మగ్రిబ్ తరువాత 90 నిమిషాలు.
+                Karachi: {
+                    name: 'University of Islamic Sciences, Karachi',
+                    params: { fajr: 18, isha: 18 } },
+                Tehran: {
+                    name: 'Institute of Geophysics, University of Tehran',
+                    params: { fajr: 17.7, isha: 14, maghrib: 4.5, midnight: 'Jafari' } }, // ఇషా 14 డిగ్రీలు. మగ్రిబ్ 4.5 డిగ్రీలు. అర్ధరాత్రి జాఫరీ (మిడ్ నైట్)
+                Jafari: {
+                    name: 'Shia Ithna-Ashari, Leva Institute, Qum',
+                    params: { fajr: 16, isha: 14, maghrib: 4, midnight: 'Jafari' } } // ఇషా 14 డిగ్రీలు. మగ్రిబ్ 4 డిగ్రీలు. అర్ధరాత్రి జాఫరీ (మిడ్ నైట్)
+            };
+
+            //డిఫాల్ట్ సెట్టింగ్స్ ----------------------------------------------------
+            var calcMethod = 'MWL'; // లెక్కించే పద్ధతి
+            var asrJuristic = 'Standard'; // అస్ర్ లెక్కించే పద్ధతి: స్టాండర్డ్ లేదా హనఫీ
+            var dhuhrMinutes = 0; // జుహర్ సమయానికి నిమిషాలు (సాధారణంగా సున్నా)
+            var adjustHighLats = 'NightMiddle'; // ఉన్నత అక్షాంశాల కోసం సర్దుబాటు పద్ధతి
+                    //నైట్ మిడిల్: రాత్రి మధ్య భాగం
+                    //వన్ సెవెంత్: రాత్రిలో ఏడవ భాగం
+                    //యాంగిల్ బేస్డ్: కోణం ఆధారిత పద్ధతి
+            var timeFormat = '24h'; // సమయ ఫార్మాట్: 24 గం లేదా 12 గం am/pm
+
+            // ప్రేయర్ టైమ్స్ పేర్లు -----------------------------------------------------
+            var timeNames = {
+                imsak    : 'Imsak', fajr     : 'Fajr', sunrise  : 'Sunrise',
+                dhuhr    : 'Dhuhr', asr      : 'Asr', sunset   : 'Sunset',
+                maghrib  : 'Maghrib', isha     : 'Isha', midnight : 'Midnight'
+            };
+
+
+            // లెక్కించే వేరియబుల్స్ ---------------------------------------------------
+            var setting = { // సెట్టింగ్స్
+                imsak    : '10 min', // ఫజ్ర్ కంటే 10 నిమిషాల ముందు ఇమ్సాక్ (డిఫాల్ట్)
+                dhuhr    : '0 min',  // మధ్యాహ్నం నుండి జుహర్ సమయం (డిఫాల్ట్ సున్నా)
+                maghrib  : '0 min',  // సూర్యాస్తమయం తర్వాత మగ్రిబ్ (డిఫాల్ట్ సున్నా)
+                midnight : 'Standard' // అర్ధరాత్రి లెక్కించే పద్ధతి: Standard లేదా Jafari
+            };
+
+            var defaultParams = { maghrib: '0 min', isha: '0 min' }; // డిఫాల్ట్ పారామీటర్స్
+
+            var lat, lng, elv, timeZone; // అక్షాంశం, రేఖాంశం, ఎత్తు, టైమ్ జోన్
+            var JDate; // జూలియన్ తేదీ
+
+            // లెక్కించే పద్ధతులు -----------------------------------------------------
+            var methodsParams = methods[calcMethod].params; // మెథడ్ పారామీటర్స్
+
+            // API ఫంక్షన్స్ ------------------------------------------------------
+            //సెట్ లెక్కించే పద్ధతి
+            self.setMethod = function(method) {
+                if (methods[method]) {
+                    self.adjust(methods[method].params);
+                    calcMethod = method;
+                }
+            };
+
+            // సర్దుబాటు పారామీటర్స్ సెట్ చేయండి
+            self.adjust = function(params) {
+                for (var id in params)
+                    setting[id] = params[id];
+            };
+
+            // అస్ర్ కోసం లెక్కించే పద్ధతి సెట్ చేయండి
+            self.setAsrMethod = function(method) {
+                var methods = { Standard: 1, Hanafi: 2 };
+                asrJuristic = methods[method] ? method : 'Standard';
+            };
+
+            // సమయ ఫార్మాట్ సెట్ చేయండి
+            self.setTimeFormat = function(format) {
+                timeFormat = format;
+            };
+
+            // ప్రేయర్ టైమ్స్ తిరిగి పొందండి
+            self.getTimes = function(date, coords, timezone, dst, format) {
+                lat = coords[0] * 1;
+                lng = coords[1] * 1;
+                elv = coords[2] ? coords[2] * 1 : 0;
+                timeZone = timezone === undefined ? self.detectTimezone() : timezone * 1;
+                dst = dst === undefined ? self.detectDst(date) : dst ? 1 : 0;
+                timeFormat = format || timeFormat;
+
+                if (date.constructor === Date)
+                    date = [date.getFullYear(), date.getMonth()+ 1, date.getDate()];
+
+                if (typeof(date) === 'undefined') date = new Date(); // ప్రస్తుత తేదీ ఉపయోగించు
+                JDate = self.julian(date[0], date[1], date[2]) - lng / (15 * 24);
+
+                return self.computeTimes();
+            };
+
+            // ప్రేయర్ టైమ్ పేరును తిరిగి పొందండి
+            self.getFormattedTime = function(time, format, suffixes) {
+                if (isNaN(time))
+                    return '-----'; // చెల్లని సమయం
+
+                if (format === 'Float') return time;
+                suffixes = suffixes || ['am', 'pm'];
+
+                time = DMath.fixHour(time + 0.5 / 60);  // సమీప నిమిషానికి రౌండ్ చేయండి
+                var hours = Math.floor(time);
+                var minutes = Math.floor((time - hours)* 60);
+                var suffix = (format === '12h') ? suffixes[hours < 12 ? 0 : 1] : '';
+                var hour = (format === '24h') ? self.twoDigitsFormat(hours) : ((hours + 11) % 12 + 1);
+                return hour + ':' + self.twoDigitsFormat(minutes) + (suffix ? ' '+ suffix : '');
+            };
+
+            // మధ్య-లెక్కించే ఫంక్షన్స్ ---------------------------------------
+            // ప్రేయర్ టైమ్స్ లెక్కించండి
+            self.computeTimes = function() {
+                // డిఫాల్ట్ టైమ్స్
+                var times = {
+                    imsak: 5, fajr: 5, sunrise: 6, dhuhr: 12,
+                    asr: 13, sunset: 18, maghrib: 18, isha: 18
+                };
+                // లెక్కించే దశలు
+                times = self.computePrayerTimes(times);
+                times = self.adjustTimes(times);
+                // సర్దుబాటు సెట్టింగ్స్ జోడించండి
+                times.midnight = (setting.midnight === 'Jafari') ?
+                        times.sunset + self.timeDiff(times.sunset, times.fajr) / 2 :
+                        times.sunset + self.timeDiff(times.sunset, times.sunrise) / 2;
+
+                times = self.tuneTimes(times);
+                return self.modifyFormats(times);
+            };
+
+            // ముఖ్యమైన ప్రేయర్ టైమ్స్ లెక్కించండి
+            self.computePrayerTimes = function(times) {
+                times = self.dayPortion(times);
+                var params = methods[calcMethod].params;
+
+                times.imsak = self.sunAngleTime(self.eval(setting.imsak), times.imsak, 'ccw');
+                times.fajr = self.sunAngleTime(params.fajr, times.fajr, 'ccw');
+                times.sunrise = self.sunAngleTime(self.riseSetAngle(), times.sunrise, 'ccw');
+                times.dhuhr = self.midDay(times.dhuhr);
+                times.asr = self.asrTime(self.asrFactor(), times.asr);
+                times.sunset = self.sunAngleTime(self.riseSetAngle(), times.sunset);
+                times.maghrib = self.sunAngleTime(self.eval(setting.maghrib), times.maghrib);
+                times.isha = self.sunAngleTime(params.isha, times.isha);
+                return times;
+             };
+
+            // సమయాలను సర్దుబాటు చేయండి
+            self.adjustTimes = function(times) {
+                var params = methods[calcMethod].params;
+                for (var i in times)
+                    times[i] += timeZone - lng / 15;
+
+                times.dhuhr += self.eval(setting.dhuhr) / 60; // జుహర్ కోసం సర్దుబాటు
+                if (params.maghrib === '0 min') // మగ్రిబ్ సమయం సెట్ చేయండి
+                    times.maghrib = times.sunset + self.eval(setting.maghrib) / 60;
+                if (params.isha === '0 min') // ఇషా సమయం సెట్ చేయండి
+                    times.isha = times.maghrib + self.eval(setting.isha) / 60;
+
+                if (adjustHighLats !== 'None')
+                    times = self.adjustHighLatTimes(times);
+                return times;
+            };
+
+            // అస్ర్ ఫాక్టర్ తిరిగి పొందండి
+            self.asrFactor = function() {
+                var factor = { Standard: 1, Hanafi: 2 }[asrJuristic];
+                return factor || 1;
+            };
+
+            // అస్ర్ సమయం తిరిగి పొందండి
+            self.asrTime = function(factor, time) {
+                var decl = self.sunPosition(JDate + time).declination;
+                var angle = -DMath.arccot(factor + DMath.tan(Math.abs(lat - decl)));
+                return self.sunAngleTime(angle, time);
+            };
+
+            // సూర్యోదయం/సూర్యాస్తమయం కోసం సూర్య కోణం తిరిగి పొందండి
+            self.riseSetAngle = function() {
+                 //var earthRad = 6371009; // భూమి వ్యాసార్థం మీటర్లలో
+                 //var angle = DMath.arccos(earthRad/(earthRad+ elv));
+                 var angle = 0.0347 * Math.sqrt(elv); // ఎత్తు కోసం సుమారు సూత్రం
+                return 0.833 + angle; // వక్రీభవనం మరియు సూర్య వ్యాసార్థం కోసం సర్దుబాటు
+            };
+
+            // నిర్దిష్ట కోణం కోసం సమయం తిరిగి పొందండి
+            self.sunAngleTime = function(angle, time, direction) {
+                var decl = self.sunPosition(JDate + time).declination;
+                var noon = self.midDay(time);
+                var t = 1/15 * DMath.arccos((-DMath.sin(angle) - DMath.sin(decl) * DMath.sin(lat)) /
+                        (DMath.cos(decl) * DMath.cos(lat)));
+                return noon + (direction === 'ccw' ? -t : t);
+            };
+
+            // మధ్యాహ్న సమయం తిరిగి పొందండి
+            self.midDay = function(time) {
+                var eqt = self.sunPosition(JDate + time).equation;
+                var noon = DMath.fixHour(12 - eqt);
+                return noon;
+            };
+
+            // రోజులో భాగాలను తిరిగి పొందండి
+            self.dayPortion = function(times) {
+                for (var i in times)
+                    times[i] /= 24;
+                return times;
+            };
+
+            // ఉన్నత అక్షాంశాల కోసం సమయాలను సర్దుబాటు చేయండి
+            self.adjustHighLatTimes = function(times) {
+                var params = methods[calcMethod].params;
+                var nightTime = self.timeDiff(times.sunset, times.sunrise); // రాత్రి సమయం వ్యవధి
+
+                times.imsak = self.adjustHLTime(times.imsak, times.sunrise, self.eval(setting.imsak), nightTime, 'ccw');
+                times.fajr = self.adjustHLTime(times.fajr, times.sunrise, params.fajr, nightTime, 'ccw');
+                times.isha = self.adjustHLTime(times.isha, times.sunset, params.isha, nightTime);
+                times.maghrib = self.adjustHLTime(times.maghrib, times.sunset, self.eval(setting.maghrib), nightTime);
+
+                return times;
+             };
+
+             // ఉన్నత అక్షాంశాల కోసం ఒక సమయం సర్దుబాటు చేయండి
+             self.adjustHLTime = function(time, base, angle, night, direction) {
+                var portion = self.nightPortion(angle, night);
+                var timeDiff = (direction === 'ccw') ?
+                    self.timeDiff(time, base):
+                    self.timeDiff(base, time);
+                if (isNaN(time) || timeDiff > portion)
+                    time = base + (direction === 'ccw' ? -portion : portion);
+                return time;
+             };
+
+             // ఉన్నత అక్షాంశాల కోసం రాత్రి భాగం తిరిగి పొందండి
+             self.nightPortion = function(angle, night) {
+                 var method = adjustHighLats;
+                 var portion = 1/2 // NightMiddle పద్ధతి కోసం డిఫాల్ట్
+
+                 if (method === 'AngleBased')
+                    portion = 1/60 * angle;
+                 if (method === 'OneSeventh')
+                    portion = 1/7;
+                 return portion * night;
+             };
+
+             // టైమ్ జోన్ గుర్తించండి
+             self.detectTimezone = function() {
+                 var year = new Date().getFullYear();
+                 var janOffset = new Date(year, 0, 1).getTimezoneOffset();
+                 var julOffset = new Date(year, 6, 1).getTimezoneOffset();
+                 return Math.max(janOffset, julOffset);
+             };
+
+             // పగటి ఆదా సమయం గుర్తించండి
+             self.detectDst = function() {
+                 return new Date().getTimezoneOffset() < self.detectTimezone();
+             };
+
+             // ఫార్మాట్లను సవరించండి
+             self.modifyFormats = function(times) {
+                for (var i in times)
+                    times[i] = self.getFormattedTime(times[i], timeFormat);
+                return times;
+            };
+
+            // నిమిషాల సర్దుబాటు కోసం ట్యూన్ సమయాలు
+            self.tuneTimes = function(times) {
+                for (var i in times)
+                    times[i] += tune[i]/ 60;
+                return times;
+            };
+
+            // ప్రేయర్ టైమ్స్ కోసం ట్యూన్ సెట్ చేయండి
+            var tune = [0, 0, 0, 0, 0, 0, 0, 0, 0]; // డిఫాల్ట్ సున్నా
+            self.tune = function(timeOffsets) {
+                for (var i=0; i<9; i++)
+                    tune[i] = timeOffsets[i];
+            };
+
+
+            // తేదీ ఫంక్షన్స్ ----------------------------------------------------
+            // జూలియన్ తేదీ లెక్కించండి
+            self.julian = function(year, month, day) {
+                if (month <= 2) {
+                    year -= 1;
+                    month += 12;
+                };
+                var A = Math.floor(year / 100);
+                var B = 2 - A + Math.floor(A / 4);
+
+                var JD = Math.floor(365.25 * (year + 4716)) + Math.floor(30.6001 * (month + 1)) + day + B - 1524.5;
+                return JD;
+            };
+
+
+            // ఖగోళ ఫంక్షన్స్ ----------------------------------------------------
+            // ఇచ్చిన జూలియన్ తేదీలో సూర్యుడి స్థానం (డెక్లినేషన్ మరియు ఈక్వేషన్ ఆఫ్ టైమ్) లెక్కించండి
+            self.sunPosition = function(jd) {
+                var D = jd - 2451545.0; // 2000 జనవరి 1 నుండి రోజులు
+                var g = DMath.fixAngle(357.529 + 0.98560028 * D); // సగటు అనోమాలీ ఆఫ్ ది సన్
+                var q = DMath.fixAngle(280.459 + 0.98564736 * D); // సగటు లాంగిట్యూడ్ ఆఫ్ ది సన్
+                var L = DMath.fixAngle(q + 1.915 * DMath.sin(g) + 0.020 * DMath.sin(2*g)); // సూర్యుడి లాంగిట్యూడ్
+
+                //var R = 1.00014 - 0.01671 * DMath.cos(g) - 0.00014 * DMath.cos(2*g); // దూరం (ఇక్కడ ఉపయోగించబడలేదు)
+                var e = 23.439 - 0.00000036 * D; // భూమి యొక్క వాలు
+
+                var RA = DMath.arctan2(DMath.cos(e) * DMath.sin(L), DMath.cos(L))/ 15; // కుడి ఆరోహణం
+                var decl = DMath.arcsin(DMath.sin(e) * DMath.sin(L));  // డెక్లినేషన్
+                var eqt = q/15 - DMath.fixHour(RA); // ఈక్వేషన్ ఆఫ్ టైమ్
+
+                return {declination: decl, equation: eqt};
+            };
+
+            // ఇచ్చిన సమయ విలువను గంటల్లోకి మార్చండి
+            self.eval = function(str) {
+                return 1 * (str || '').split(':')[0]; // ఇప్పుడు కేవలం డిగ్రీలు మాత్రమే హ్యాండిల్ చేస్తుంది
+            };
+
+            // ఇచ్చిన రెండు సమయాల మధ్య సమయ వ్యత్యాసాన్ని తిరిగి పొందండి
+            self.timeDiff = function(time1, time2) {
+                return DMath.fixHour(time2 - time1);
+            };
+
+            // రెండు అంకెల ఫార్మాట్
+            self.twoDigitsFormat = function(num) {
+                return (num < 10) ? '0'+ num : num;
+            };
+
+            // కిబ్లా దిశను లెక్కించండి
+            self.getQibla = function(coords) {
+                var lat1 = coords[0];
+                var lon1 = coords[1];
+                var lat2 = 21.4225; // కాబా అక్షాంశం
+                var lon2 = 39.8262; // కాబా రేఖాంశం
+
+                var dLon = (lon2 - lon1);
+                var y = Math.sin(DMath.dtr(dLon)) * Math.cos(DMath.dtr(lat2));
+                var x = Math.cos(DMath.dtr(lat1)) * Math.sin(DMath.dtr(lat2)) -
+                        Math.sin(DMath.dtr(lat1)) * Math.cos(DMath.dtr(lat2)) * Math.cos(DMath.dtr(dLon));
+                var brng = DMath.rtd(Math.atan2(y, x));
+
+                return DMath.fixAngle(brng);
+            };
+
+        };
+
+        // గణిత ఫంక్షన్స్ ---------------------------------------------------
+        var DMath = {
+            dtr: function(d) { return (d * Math.PI) / 180.0; },
+            rtd: function(r) { return (r * 180.0) / Math.PI; },
+
+            sin:  function(d) { return Math.sin(this.dtr(d)); },
+            cos:  function(d) { return Math.cos(this.dtr(d)); },
+            tan:  function(d) { return Math.tan(this.dtr(d)); },
+
+            arcsin: function(d) { return this.rtd(Math.asin(d)); },
+            arccos: function(d) { return this.rtd(Math.acos(d)); },
+            arctan: function(d) { return this.rtd(Math.atan(d)); },
+
+            arccot: function(x) { return this.rtd(Math.atan(1/x)); },
+            arctan2: function(y, x) { return this.rtd(Math.atan2(y, x)); },
+
+            fixAngle: function(a) { return this.fix(a, 360); },
+            fixHour:  function(a) { return this.fix(a, 24 ); },
+
+            fix: function(a, mode) {
+                a = a - mode * (Math.floor(a / mode));
+                return (a < 0) ? a + mode : a;
+            }
+        };
+
+        // --- END: PrayTimes.js v2.3 ---
+
+
+        // --- START: Simple Hijri Date Converter ---
+        function gregorianToHijri(gy, gm, gd) {
+            let d = Math.floor;
+            let g_day_no = d((367 * gy - d((7 * (gy + d((gm + 9) / 12))) / 4) + d((275 * gm) / 9) + gd - 730530) + 0.5);
+            let h_day_no = g_day_no + 1948439;
+            let h_year = d((203 * h_day_no + 10002) / 71821);
+            let h_day = h_day_no - d((71821 * h_year - 10002) / 203);
+            let h_month = d((4 * h_day + 228) / 1183);
+            let h_date = h_day - d((1183 * h_month - 228) / 4) + 1;
+            let hijriMonths = ["Muharram", "Safar", "Rabi' al-awwal", "Rabi' al-thani", "Jumada al-awwal", "Jumada al-thani", "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"];
+            return { day: h_date, month: h_month, year: h_year, monthName: hijriMonths[h_month - 1] };
+        }
+        // --- END: Simple Hijri Date Converter ---
+
+
+        // --- START: App Logic ---
+        const DB_NAME = 'DailyBlessingsDB_V2';
         const DB_VERSION = 1;
         const DAILY_DATA_STORE = 'dailyData';
         const APP_STATE_STORE = 'appState';
         const STREAK_KEY = 'streakInfo';
+        const LOCATION_KEY = 'userLocation';
 
         let db;
+        let prayTimes = new PrayTimes('MWL'); // Initialize PrayTimes with MWL method
+        let currentHistoryData = []; // Cache for history search
 
         const namesOfAllah = [
-            { name: "Ar-Rahman", meaning: "The Beneficent" }, { name: "Ar-Rahim", meaning: "The Merciful" },
-            { name: "Al-Malik", meaning: "The King" }, { name: "Al-Quddus", meaning: "The Holy" },
-            { name: "As-Salam", meaning: "The Source of Peace" }, { name: "Al-Mu'min", meaning: "The Inspirer of Faith" },
-            { name: "Al-Muhaymin", meaning: "The Guardian" }, { name: "Al-Aziz", meaning: "The Victorious" },
-            { name: "Al-Jabbar", meaning: "The Compeller" }, { name: "Al-Mutakabbir", meaning: "The Greatest" },
-            { name: "Al-Khaliq", meaning: "The Creator" }, { name: "Al-Bari'", meaning: "The Maker of Order" },
-            { name: "Al-Musawwir", meaning: "The Shaper of Beauty" }, { name: "Al-Ghaffar", meaning: "The Forgiving" },
-            { name: "Al-Qahhar", meaning: "The Subduer" }, { name: "Al-Wahhab", meaning: "The Giver of All" },
-            { name: "Ar-Razzaq", meaning: "The Sustainer" }, { name: "Al-Fattah", meaning: "The Opener" },
-            { name: "Al-'Alim", meaning: "The Knower of All" }, { name: "Al-Qabid", meaning: "The Constrictor" },
-            { name: "Al-Basit", meaning: "The Reliever" }, { name: "Al-Khafid", meaning: "The Abaser" },
-            { name: "Ar-Rafi'", meaning: "The Exalter" }, { name: "Al-Mu'izz", meaning: "The Bestower of Honors" },
-            { name: "Al-Mudhill", meaning: "The Humiliator" }, { name: "As-Sami", meaning: "The Hearer of All" },
-            { name: "Al-Basir", meaning: "The Seer of All" }, { name: "Al-Hakam", meaning: "The Judge" },
-            { name: "Al-'Adl", meaning: "The Just" }, { name: "Al-Latif", meaning: "The Subtle One" },
-            { name: "Al-Khabir", meaning: "The All-Aware" }, { name: "Al-Halim", meaning: "The Forebearing" },
-            { name: "Al-'Azim", meaning: "The Magnificent" }, { name: "Al-Ghafur", meaning: "The Forgiver and Hider of Faults" },
-            { name: "Ash-Shakur", meaning: "The Rewarder of Thankfulness" }, { name: "Al-'Ali", meaning: "The Highest" },
-            { name: "Al-Kabir", meaning: "The Greatest" }, { name: "Al-Hafiz", meaning: "The Preserver" },
-            { name: "Al-Muqit", meaning: "The Nourisher" }, { name: "Al-Hasib", meaning: "The Accounter" },
-            { name: "Al-Jalil", meaning: "The Mighty" }, { name: "Al-Karim", meaning: "The Generous" },
-            { name: "Ar-Raqib", meaning: "The Watchful One" }, { name: "Al-Mujib", meaning: "The Responder to Prayer" },
-            { name: "Al-Wasi'", meaning: "The All-Comprehending" }, { name: "Al-Hakim", meaning: "The Perfectly Wise" },
-            { name: "Al-Wadud", meaning: "The Loving One" }, { name: "Al-Majid", meaning: "The Majestic One" },
-            { name: "Al-Ba'ith", meaning: "The Resurrector" }, { name: "Ash-Shahid", meaning: "The Witness" },
-            { name: "Al-Haqq", meaning: "The Truth" }, { name: "Al-Wakil", meaning: "The Trustee" },
-            { name: "Al-Qawi", meaning: "The Possessor of All Strength" }, { name: "Al-Matin", meaning: "The Forceful One" },
-            { name: "Al-Wali", meaning: "The Governor" }, { name: "Al-Hamid", meaning: "The Praised One" },
-            { name: "Al-Muhsi", meaning: "The Appraiser" }, { name: "Al-Mubdi", meaning: "The Originator" },
-            { name: "Al-Mu'id", meaning: "The Restorer" }, { name: "Al-Muhyi", meaning: "The Giver of Life" },
-            { name: "Al-Mumit", meaning: "The Taker of Life" }, { name: "Al-Hayy", meaning: "The Ever Living One" },
-            { name: "Al-Qayyum", meaning: "The Self-Existing One" }, { name: "Al-Wajid", meaning: "The Finder" },
-            { name: "Al-Majid", meaning: "The Glorious" }, { name: "Al-Wahid", meaning: "The Unique, The Single" },
-            { name: "Al-Ahad", meaning: "The One" }, { name: "As-Samad", meaning: "The Satisfier of All Needs" },
-            { name: "Al-Qadir", meaning: "The All Powerful" }, { name: "Al-Muqtadir", meaning: "The Creator of All Power" },
-            { name: "Al-Muqaddim", meaning: "The Expediter" }, { name: "Al-Mu'akhkhir", meaning: "The Delayer" },
-            { name: "Al-Awwal", meaning: "The First" }, { name: "Al-Akhir", meaning: "The Last" },
-            { name: "Az-Zahir", meaning: "The Manifest One" }, { name: "Al-Batin", meaning: "The Hidden One" },
-            { name: "Al-Wali", meaning: "The Protecting Friend" }, { name: "Al-Muta'ali", meaning: "The Supreme One" },
-            { name: "Al-Barr", meaning: "The Doer of Good" }, { name: "At-Tawwab", meaning: "The Guide to Repentance" },
-            { name: "Al-Muntaqim", meaning: "The Avenger" }, { name: "Al-Afu", meaning: "The Pardoner" },
-            { name: "Ar-Ra'uf", meaning: "The Clement" }, { name: "Malik-al-Mulk", meaning: "The Owner of All" },
-            { name: "Dhul-Jalali Wal-Ikram", meaning: "The Lord of Majesty and Bounty" }, { name: "Al-Muqsit", meaning: "The Equitable One" },
-            { name: "Al-Jami", meaning: "The Gatherer" }, { name: "Al-Ghani", meaning: "The Rich One" },
-            { name: "Al-Mughni", meaning: "The Enricher" }, { name: "Al-Mani'", meaning: "The Preventer of Harm" },
-            { name: "Ad-Darr", meaning: "The Creator of The Harmful" }, { name: "An-Nafi", meaning: "The Creator of Good" },
-            { name: "An-Nur", meaning: "The Light" }, { name: "Al-Hadi", meaning: "The Guide" },
-            { name: "Al-Badi", meaning: "The Originator" }, { name: "Al-Baqi", meaning: "The Everlasting One" },
-            { name: "Al-Warith", meaning: "The Inheritor of All" }, { name: "Ar-Rashid", meaning: "The Righteous Teacher" },
-            { name: "As-Sabur", meaning: "The Patient One" }
+             { name: "Ar-Rahman", meaning: "The Beneficent" }, { name: "Ar-Rahim", meaning: "The Merciful" },
+             { name: "Al-Malik", meaning: "The King" }, { name: "Al-Quddus", meaning: "The Holy" },
+             { name: "As-Salam", meaning: "The Source of Peace" }, { name: "Al-Mu'min", meaning: "The Inspirer of Faith" },
+             { name: "Al-Muhaymin", meaning: "The Guardian" }, { name: "Al-Aziz", meaning: "The Victorious" },
+             { name: "Al-Jabbar", meaning: "The Compeller" }, { name: "Al-Mutakabbir", meaning: "The Greatest" },
+             { name: "Al-Khaliq", meaning: "The Creator" }, { name: "Al-Bari'", meaning: "The Maker of Order" },
+             { name: "Al-Musawwir", meaning: "The Shaper of Beauty" }, { name: "Al-Ghaffar", meaning: "The Forgiving" },
+             { name: "Al-Qahhar", meaning: "The Subduer" }, { name: "Al-Wahhab", meaning: "The Giver of All" },
+             { name: "Ar-Razzaq", meaning: "The Sustainer" }, { name: "Al-Fattah", meaning: "The Opener" },
+             { name: "Al-'Alim", meaning: "The Knower of All" }, { name: "Al-Qabid", meaning: "The Constrictor" },
+             { name: "Al-Basit", meaning: "The Reliever" }, { name: "Al-Khafid", meaning: "The Abaser" },
+             { name: "Ar-Rafi'", meaning: "The Exalter" }, { name: "Al-Mu'izz", meaning: "The Bestower of Honors" },
+             { name: "Al-Mudhill", meaning: "The Humiliator" }, { name: "As-Sami", meaning: "The Hearer of All" },
+             { name: "Al-Basir", meaning: "The Seer of All" }, { name: "Al-Hakam", meaning: "The Judge" },
+             { name: "Al-'Adl", meaning: "The Just" }, { name: "Al-Latif", meaning: "The Subtle One" },
+             { name: "Al-Khabir", meaning: "The All-Aware" }, { name: "Al-Halim", meaning: "The Forebearing" },
+             { name: "Al-'Azim", meaning: "The Magnificent" }, { name: "Al-Ghafur", meaning: "The Forgiver and Hider of Faults" },
+             { name: "Ash-Shakur", meaning: "The Rewarder of Thankfulness" }, { name: "Al-'Ali", meaning: "The Highest" },
+             { name: "Al-Kabir", meaning: "The Greatest" }, { name: "Al-Hafiz", meaning: "The Preserver" },
+             { name: "Al-Muqit", meaning: "The Nourisher" }, { name: "Al-Hasib", meaning: "The Accounter" },
+             { name: "Al-Jalil", meaning: "The Mighty" }, { name: "Al-Karim", meaning: "The Generous" },
+             { name: "Ar-Raqib", meaning: "The Watchful One" }, { name: "Al-Mujib", meaning: "The Responder to Prayer" },
+             { name: "Al-Wasi'", meaning: "The All-Comprehending" }, { name: "Al-Hakim", meaning: "The Perfectly Wise" },
+             { name: "Al-Wadud", meaning: "The Loving One" }, { name: "Al-Majid", meaning: "The Majestic One" },
+             { name: "Al-Ba'ith", meaning: "The Resurrector" }, { name: "Ash-Shahid", meaning: "The Witness" },
+             { name: "Al-Haqq", meaning: "The Truth" }, { name: "Al-Wakil", meaning: "The Trustee" },
+             { name: "Al-Qawi", meaning: "The Possessor of All Strength" }, { name: "Al-Matin", meaning: "The Forceful One" },
+             { name: "Al-Wali", meaning: "The Governor" }, { name: "Al-Hamid", meaning: "The Praised One" },
+             { name: "Al-Muhsi", meaning: "The Appraiser" }, { name: "Al-Mubdi", meaning: "The Originator" },
+             { name: "Al-Mu'id", meaning: "The Restorer" }, { name: "Al-Muhyi", meaning: "The Giver of Life" },
+             { name: "Al-Mumit", meaning: "The Taker of Life" }, { name: "Al-Hayy", meaning: "The Ever Living One" },
+             { name: "Al-Qayyum", meaning: "The Self-Existing One" }, { name: "Al-Wajid", meaning: "The Finder" },
+             { name: "Al-Majid", meaning: "The Glorious" }, { name: "Al-Wahid", meaning: "The Unique, The Single" },
+             { name: "Al-Ahad", meaning: "The One" }, { name: "As-Samad", meaning: "The Satisfier of All Needs" },
+             { name: "Al-Qadir", meaning: "The All Powerful" }, { name: "Al-Muqtadir", meaning: "The Creator of All Power" },
+             { name: "Al-Muqaddim", meaning: "The Expediter" }, { name: "Al-Mu'akhkhir", meaning: "The Delayer" },
+             { name: "Al-Awwal", meaning: "The First" }, { name: "Al-Akhir", meaning: "The Last" },
+             { name: "Az-Zahir", meaning: "The Manifest One" }, { name: "Al-Batin", meaning: "The Hidden One" },
+             { name: "Al-Wali", meaning: "The Protecting Friend" }, { name: "Al-Muta'ali", meaning: "The Supreme One" },
+             { name: "Al-Barr", meaning: "The Doer of Good" }, { name: "At-Tawwab", meaning: "The Guide to Repentance" },
+             { name: "Al-Muntaqim", meaning: "The Avenger" }, { name: "Al-Afu", meaning: "The Pardoner" },
+             { name: "Ar-Ra'uf", meaning: "The Clement" }, { name: "Malik-al-Mulk", meaning: "The Owner of All" },
+             { name: "Dhul-Jalali Wal-Ikram", meaning: "The Lord of Majesty and Bounty" }, { name: "Al-Muqsit", meaning: "The Equitable One" },
+             { name: "Al-Jami", meaning: "The Gatherer" }, { name: "Al-Ghani", meaning: "The Rich One" },
+             { name: "Al-Mughni", meaning: "The Enricher" }, { name: "Al-Mani'", meaning: "The Preventer of Harm" },
+             { name: "Ad-Darr", meaning: "The Creator of The Harmful" }, { name: "An-Nafi", meaning: "The Creator of Good" },
+             { name: "An-Nur", meaning: "The Light" }, { name: "Al-Hadi", meaning: "The Guide" },
+             { name: "Al-Badi", meaning: "The Originator" }, { name: "Al-Baqi", meaning: "The Everlasting One" },
+             { name: "Al-Warith", meaning: "The Inheritor of All" }, { name: "Ar-Rashid", meaning: "The Righteous Teacher" },
+             { name: "As-Sabur", meaning: "The Patient One" }
         ];
-
         const dailyContent = [
-            { type: "Ayah", text: "Indeed, Allah is with the patient. - Quran (2:153)" },
-            { type: "Hadith", text: "He who does not thank the people is not thankful to Allah. - Tirmidhi" },
-            { type: "Quote", text: "Dua (supplication) is the weapon of the believer." },
-            { type: "Ayah", text: "And seek help through patience and prayer. - Quran (2:45)" },
-            { type: "Hadith", text: "Kindness is a mark of faith, and whoever is not kind has no faith. - Muslim" },
-            { type: "Quote", text: "The strongest among you is the one who controls his anger. - Prophet Muhammad (ﷺ)" },
-            { type: "Ayah", text: "Do good deeds. Verily, Allah loves the doers of good. - Quran (2:195)" },
-            { type: "Hadith", text: "The believer's shade on the Day of Resurrection will be his charity. - Tirmidhi" },
-            { type: "Quote", text: "Knowledge without action is like a tree without fruit." },
-            { type: "Ayah", text: "Call upon Me; I will respond to you. - Quran (40:60)" },
-            { type: "Hadith", text: "Modesty is part of faith. - Bukhari" },
-            { type: "Quote", text: "Patience is the key to relief." },
-            { type: "Ayah", text: "And He is with you wherever you are. - Quran (57:4)" },
-            { type: "Hadith", text: "None of you truly believes until he loves for his brother what he loves for himself. - Bukhari" },
-            { type: "Quote", text: "Control your tongue. It can lead you to Paradise or Hellfire." },
+             { type: "Ayah", text: "Indeed, Allah is with the patient. - Quran (2:153)" },
+             { type: "Hadith", text: "He who does not thank the people is not thankful to Allah. - Tirmidhi" },
+             { type: "Quote", text: "Dua (supplication) is the weapon of the believer." },
+             { type: "Ayah", text: "And seek help through patience and prayer. - Quran (2:45)" },
+             { type: "Hadith", text: "Kindness is a mark of faith, and whoever is not kind has no faith. - Muslim" },
+             { type: "Quote", text: "The strongest among you is the one who controls his anger. - Prophet Muhammad (ﷺ)" },
+             { type: "Ayah", text: "Do good deeds. Verily, Allah loves the doers of good. - Quran (2:195)" },
+             { type: "Hadith", text: "The believer's shade on the Day of Resurrection will be his charity. - Tirmidhi" },
+             { type: "Quote", text: "Knowledge without action is like a tree without fruit." },
+             { type: "Ayah", text: "Call upon Me; I will respond to you. - Quran (40:60)" },
+             { type: "Hadith", text: "Modesty is part of faith. - Bukhari" }, { type: "Quote", text: "Patience is the key to relief." },
+             { type: "Ayah", text: "And He is with you wherever you are. - Quran (57:4)" },
+             { type: "Hadith", text: "None of you truly believes until he loves for his brother what he loves for himself. - Bukhari" },
+             { type: "Quote", text: "Control your tongue. It can lead you to Paradise or Hellfire." },
              { type: "Ayah", text: "Indeed, the most noble of you in the sight of Allah is the most righteous of you. - Quran (49:13)" },
-            { type: "Hadith", text: "A man's true wealth is the good he does in this world. - Prophet Muhammad (ﷺ)" },
-            { type: "Quote", text: "Trust in Allah, but tie your camel." },
-            { type: "Ayah", text: "So which of the favors of your Lord would you deny? - Quran (55:13)" },
-            { type: "Hadith", text: "Make things easy for people and do not make them difficult. - Bukhari" }
+             { type: "Hadith", text: "A man's true wealth is the good he does in this world. - Prophet Muhammad (ﷺ)" },
+             { type: "Quote", text: "Trust in Allah, but tie your camel." },
+             { type: "Ayah", text: "So which of the favors of your Lord would you deny? - Quran (55:13)" },
+             { type: "Hadith", text: "Make things easy for people and do not make them difficult. - Bukhari" },
+             { type: "Quote", text: "Fear Allah wherever you are. - Prophet Muhammad (ﷺ)" },
+             { type: "Ayah", text: "Verily, the remembrance of Allah (SWT) calms the heart. - Quran (13:28)"},
+             { type: "Hadith", text: "The best of you are those who are best to their families. - Tirmidhi"},
+             { type: "Quote", text: "Smiling in your brother's face is an act of charity. - Prophet Muhammad (ﷺ)"}
+        ];
+        const dailyDuas = [
+            "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ \n (Rabbana atina fi dunya hasanatan wa fil akhirati hasanatan wa qina adhaban naar) \n Our Lord! Grant us good in this world and good in the hereafter, and save us from the chastisement of the fire. (Quran 2:201)",
+            "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَىٰ وَالتُّقَىٰ وَالْعَفَافَ وَالْغِنَىٰ \n (Allahumma inni as'alukal-huda wat-tuqa wal-'afafa wal-ghina) \n O Allah, I ask You for guidance, piety, chastity, and self-sufficiency. (Muslim)",
+            "اللَّهُمَّ أَعِنِّي عَلَىٰ ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ \n (Allahumma a'inni 'ala dhikrika wa shukrika wa husni 'ibadatika) \n O Allah, help me remember You, to be grateful to You, and to worship You in an excellent manner. (Abu Dawud)",
+            "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَىٰ دِينِكَ \n (Ya Muqallib al-quloob thabbit qalbi 'ala deenika) \n O Turner of the hearts, keep my heart firm upon Your religion. (Tirmidhi)",
+            "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي يَفْقَهُوا قَوْلِي \n (Rabbishrah li sadri wa yassir li amri wah-lul 'uqdatam-min lisaani yafqahu qawli) \n My Lord, expand for me my breast [with assurance], And ease for me my task, And untie the knot from my tongue, That they may understand my speech. (Quran 20:25-28)"
         ];
 
+
+        // DOM Elements Cache
+        const DOMElements = {
+            gregorianDate: document.getElementById('gregorianDate'),
+            hijriDate: document.getElementById('hijriDate'),
+            allahName: document.getElementById('allahName'),
+            allahNameMeaning: document.getElementById('allahNameMeaning'),
+            quoteType: document.getElementById('quoteType'),
+            quoteText: document.getElementById('quoteText'),
+            duaText: document.getElementById('duaText'),
+            checkInButton: document.getElementById('checkInButton'),
+            streak: document.getElementById('streak'),
+            streakStatus: document.getElementById('streakStatus'),
+            dailyNote: document.getElementById('dailyNote'),
+            saveNoteButton: document.getElementById('saveNoteButton'),
+            toggleHistoryButton: document.getElementById('toggleHistoryButton'),
+            historySection: document.getElementById('historySection'),
+            historyContent: document.getElementById('historyContent'),
+            historyEntries: document.getElementById('historyEntries'),
+            historySearchInput: document.getElementById('historySearchInput'),
+            toggleSettingsButton: document.getElementById('toggleSettingsButton'),
+            settingsSection: document.getElementById('settingsSection'),
+            latitudeInput: document.getElementById('latitude'),
+            longitudeInput: document.getElementById('longitude'),
+            saveSettingsButton: document.getElementById('saveSettingsButton'),
+            prayerTimesDiv: document.getElementById('prayerTimes'),
+            qiblaDirectionDiv: document.getElementById('qiblaDirection'),
+            prayerMethodDisplay: document.getElementById('prayerMethodDisplay'),
+            exportDataButton: document.getElementById('exportDataButton'),
+            importDataButton: document.getElementById('importDataButton'),
+            importFileInput: document.getElementById('importFileInput'),
+            tabs: document.querySelectorAll('.tab-link'),
+            tabContents: document.querySelectorAll('.tab-content')
+        };
+
+        // --- Utility Functions ---
         function getTodayDateString() {
             const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+            return today.toISOString().split('T')[0]; // YYYY-MM-DD
         }
 
         function getDayOfYear(date = new Date()) {
             const start = new Date(date.getFullYear(), 0, 0);
-            const diff = date - start;
+            const diff = date - start + ((start.getTimezoneOffset() - date.getTimezoneOffset()) * 60 * 1000);
             const oneDay = 1000 * 60 * 60 * 24;
             return Math.floor(diff / oneDay);
         }
 
-        function displayDailyContent() {
-            const dayIndex = getDayOfYear();
-            const nameIndex = dayIndex % namesOfAllah.length;
-            const contentIndex = dayIndex % dailyContent.length;
-
-            const selectedName = namesOfAllah[nameIndex];
-            const selectedContent = dailyContent[contentIndex];
-
-            document.getElementById('allahName').textContent = selectedName.name;
-            document.getElementById('allahNameMeaning').textContent = selectedName.meaning;
-
-            document.getElementById('quoteType').textContent = selectedContent.type;
-            document.getElementById('quoteText').textContent = selectedContent.text;
+        function formatGregorianDate(date = new Date()) {
+             return date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         }
 
+        function formatHijriDate(hijriResult) {
+             return `${hijriResult.day} ${hijriResult.monthName} ${hijriResult.year} AH`;
+        }
+
+        function toggleVisibility(element) {
+            element.classList.toggle('hidden');
+        }
+
+        function showToast(message, duration = 3000) {
+             // Simple feedback: Use alert for now. A proper toast implementation would be better.
+             alert(message);
+        }
+
+
+        // --- IndexedDB Functions ---
         function initDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-                request.onerror = (event) => {
-                    console.error("Database error:", event.target.errorCode);
-                    reject("Database error: " + event.target.errorCode);
-                };
-
-                request.onsuccess = (event) => {
-                    db = event.target.result;
-                    console.log("Database opened successfully");
-                    resolve(db);
-                };
-
-                request.onupgradeneeded = (event) => {
-                    db = event.target.result;
-                    if (!db.objectStoreNames.contains(DAILY_DATA_STORE)) {
-                        db.createObjectStore(DAILY_DATA_STORE, { keyPath: 'date' });
-                        console.log(`Object store ${DAILY_DATA_STORE} created.`);
-                    }
-                     if (!db.objectStoreNames.contains(APP_STATE_STORE)) {
-                        db.createObjectStore(APP_STATE_STORE, { keyPath: 'key' });
-                         console.log(`Object store ${APP_STATE_STORE} created.`);
-                    }
-                };
-            });
-        }
-
-         function getAppState(key) {
-            return new Promise((resolve, reject) => {
-                if (!db) return reject("DB not initialized");
-                const transaction = db.transaction([APP_STATE_STORE], 'readonly');
-                const store = transaction.objectStore(APP_STATE_STORE);
-                const request = store.get(key);
-
-                request.onsuccess = (event) => {
-                    resolve(event.target.result);
-                };
-                request.onerror = (event) => {
-                    console.error("Error fetching app state:", event.target.error);
-                    reject(event.target.error);
-                };
-            });
-        }
-
-        function setAppState(key, value) {
-            return new Promise((resolve, reject) => {
-                if (!db) return reject("DB not initialized");
-                const transaction = db.transaction([APP_STATE_STORE], 'readwrite');
-                const store = transaction.objectStore(APP_STATE_STORE);
-                const request = store.put({ key: key, value: value });
-
-                request.onsuccess = () => {
-                    resolve();
-                };
-                request.onerror = (event) => {
-                    console.error("Error setting app state:", event.target.error);
-                    reject(event.target.error);
-                };
-            });
-        }
-
-
-        function getDailyData(date) {
-            return new Promise((resolve, reject) => {
-                if (!db) return reject("DB not initialized");
-                const transaction = db.transaction([DAILY_DATA_STORE], 'readonly');
-                const store = transaction.objectStore(DAILY_DATA_STORE);
-                const request = store.get(date);
-
-                request.onsuccess = (event) => {
-                    resolve(event.target.result);
-                };
-                request.onerror = (event) => {
-                    console.error("Error fetching daily data:", event.target.error);
-                    reject(event.target.error);
-                };
-            });
-        }
-
-        function saveDailyData(data) {
              return new Promise((resolve, reject) => {
-                if (!db) return reject("DB not initialized");
-                const transaction = db.transaction([DAILY_DATA_STORE], 'readwrite');
-                const store = transaction.objectStore(DAILY_DATA_STORE);
-                const request = store.put(data);
-
-                request.onsuccess = () => {
-                    resolve();
-                };
-                request.onerror = (event) => {
-                     console.error("Error saving daily data:", event.target.error);
-                    reject(event.target.error);
-                };
-            });
+                 const request = indexedDB.open(DB_NAME, DB_VERSION);
+                 request.onerror = (event) => reject(`Database error: ${event.target.errorCode}`);
+                 request.onsuccess = (event) => { db = event.target.result; console.log("DB opened"); resolve(db); };
+                 request.onupgradeneeded = (event) => {
+                     db = event.target.result;
+                     if (!db.objectStoreNames.contains(DAILY_DATA_STORE)) {
+                         db.createObjectStore(DAILY_DATA_STORE, { keyPath: 'date' });
+                     }
+                     if (!db.objectStoreNames.contains(APP_STATE_STORE)) {
+                         db.createObjectStore(APP_STATE_STORE, { keyPath: 'key' });
+                     }
+                     console.log("DB upgrade complete");
+                 };
+             });
         }
 
-         function getAllDailyData() {
+         function getFromDB(storeName, key) {
+             return new Promise((resolve, reject) => {
+                 if (!db) return reject("DB not initialized");
+                 try {
+                    const transaction = db.transaction([storeName], 'readonly');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.get(key);
+                    request.onsuccess = (event) => resolve(event.target.result);
+                    request.onerror = (event) => reject(`Error fetching from ${storeName}: ${event.target.error}`);
+                 } catch (error) { reject(`Transaction error on ${storeName}: ${error}`); }
+             });
+         }
+
+         function saveToDB(storeName, dataObject) {
+             return new Promise((resolve, reject) => {
+                 if (!db) return reject("DB not initialized");
+                  try {
+                    const transaction = db.transaction([storeName], 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.put(dataObject);
+                    request.onsuccess = () => resolve();
+                    request.onerror = (event) => reject(`Error saving to ${storeName}: ${event.target.error}`);
+                 } catch (error) { reject(`Transaction error on ${storeName}: ${error}`); }
+             });
+         }
+
+        function getAllFromDB(storeName) {
             return new Promise((resolve, reject) => {
                 if (!db) return reject("DB not initialized");
-                const transaction = db.transaction([DAILY_DATA_STORE], 'readonly');
-                const store = transaction.objectStore(DAILY_DATA_STORE);
-                const request = store.getAll();
-
-                request.onsuccess = (event) => {
-                    resolve(event.target.result.sort((a, b) => b.date.localeCompare(a.date))); // Sort descending
-                };
-                request.onerror = (event) => {
-                    console.error("Error fetching all daily data:", event.target.error);
-                    reject(event.target.error);
-                };
+                 try {
+                    const transaction = db.transaction([storeName], 'readonly');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.getAll();
+                    request.onsuccess = (event) => resolve(event.target.result);
+                    request.onerror = (event) => reject(`Error getting all from ${storeName}: ${event.target.error}`);
+                 } catch (error) { reject(`Transaction error on ${storeName}: ${error}`); }
             });
         }
+
+        function clearStore(storeName) {
+             return new Promise((resolve, reject) => {
+                 if (!db) return reject("DB not initialized");
+                  try {
+                     const transaction = db.transaction([storeName], 'readwrite');
+                     const store = transaction.objectStore(storeName);
+                     const request = store.clear();
+                     request.onsuccess = () => resolve();
+                     request.onerror = (event) => reject(`Error clearing store ${storeName}: ${event.target.error}`);
+                  } catch (error) { reject(`Transaction error on ${storeName}: ${error}`); }
+             });
+         }
+
+        // --- Core Application Logic ---
+        function displayDailyContent() {
+            const today = new Date();
+            const dayIndex = getDayOfYear(today);
+
+            // Gregorian & Hijri Date
+            DOMElements.gregorianDate.textContent = formatGregorianDate(today);
+            const gy = today.getFullYear();
+            const gm = today.getMonth() + 1;
+            const gd = today.getDate();
+            const hijriResult = gregorianToHijri(gy, gm, gd);
+            DOMElements.hijriDate.textContent = formatHijriDate(hijriResult);
+
+            // Name of Allah
+            const nameIndex = dayIndex % namesOfAllah.length;
+            const selectedName = namesOfAllah[nameIndex];
+            DOMElements.allahName.textContent = selectedName.name;
+            DOMElements.allahNameMeaning.textContent = selectedName.meaning;
+
+            // Quote/Hadith/Ayah
+            const contentIndex = dayIndex % dailyContent.length;
+            const selectedContent = dailyContent[contentIndex];
+            DOMElements.quoteType.textContent = selectedContent.type;
+            DOMElements.quoteText.textContent = selectedContent.text;
+
+            // Dua of the Day
+            const duaIndex = dayIndex % dailyDuas.length;
+            DOMElements.duaText.innerHTML = dailyDuas[duaIndex].replace(/\n/g, '<br>'); // Use innerHTML for line breaks
+        }
+
+         async function updatePrayerTimesUI(latitude, longitude) {
+             if (latitude === null || longitude === null || isNaN(latitude) || isNaN(longitude)) {
+                 DOMElements.prayerTimesDiv.innerHTML = 'Please set a valid location in Settings.';
+                 DOMElements.qiblaDirectionDiv.textContent = 'Please set location in Settings.';
+                 return;
+             }
+
+             try {
+                const date = new Date();
+                // PrayTimes needs timezone offset in hours, JS provides it in minutes. Convert and flip sign.
+                const timezone = -date.getTimezoneOffset() / 60;
+                const times = prayTimes.getTimes(date, [latitude, longitude], timezone);
+                const prayerOrder = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']; // Removed Sunset as it's same as Maghrib start
+
+                let prayerHTML = '';
+                prayerOrder.forEach(prayer => {
+                     prayerHTML += `<span><strong>${prayer}</strong> ${times[prayer.toLowerCase()]}</span>`;
+                 });
+                 DOMElements.prayerTimesDiv.innerHTML = prayerHTML;
+
+                // Qibla
+                const qibla = prayTimes.getQibla([latitude, longitude]);
+                DOMElements.qiblaDirectionDiv.textContent = `${qibla.toFixed(2)}° from North`;
+
+                // Display method used (Could be dynamic if settings allow changing it)
+                 DOMElements.prayerMethodDisplay.textContent = 'MWL'; // Hardcoded for now
+
+             } catch (error) {
+                 console.error("Error calculating prayer times:", error);
+                 DOMElements.prayerTimesDiv.innerHTML = 'Error calculating times.';
+                 DOMElements.qiblaDirectionDiv.textContent = 'Error calculating Qibla.';
+             }
+         }
 
          async function loadInitialData() {
-            const todayDate = getTodayDateString();
-            try {
-                const dailyData = await getDailyData(todayDate);
-                const streakInfo = await getAppState(STREAK_KEY);
-
-                let currentStreak = 0;
-                let lastCheckinDate = null;
-
-                if (streakInfo) {
-                    currentStreak = streakInfo.value.current || 0;
-                    lastCheckinDate = streakInfo.value.lastCheckinDate;
-                }
-
-                // Update streak based on last checkin date
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                const yesterdayDate = yesterday.toISOString().split('T')[0];
-
-                if (lastCheckinDate && lastCheckinDate !== todayDate && lastCheckinDate !== yesterdayDate) {
-                     // Missed more than a day, reset streak if not checked in today
-                     if (!dailyData || !dailyData.checkedIn) {
-                        currentStreak = 0;
-                        await setAppState(STREAK_KEY, { current: 0, lastCheckinDate: null });
+             const todayDate = getTodayDateString();
+             try {
+                 // Load Daily Data (Check-in, Note)
+                 const dailyData = await getFromDB(DAILY_DATA_STORE, todayDate);
+                 if (dailyData) {
+                     DOMElements.dailyNote.value = dailyData.note || '';
+                     if (dailyData.checkedIn) {
+                         DOMElements.checkInButton.disabled = true;
+                         DOMElements.checkInButton.textContent = 'Checked In Today';
+                     } else {
+                          DOMElements.checkInButton.disabled = false;
+                          DOMElements.checkInButton.textContent = 'Mark Day Started';
                      }
-                } else if (lastCheckinDate === yesterdayDate && (!dailyData || !dailyData.checkedIn)) {
-                     // Last check-in was yesterday, but not checked in today yet. Streak remains until check-in.
-                } else if (!lastCheckinDate && (!dailyData || !dailyData.checkedIn)) {
-                     // No check-in history, streak is 0
-                    currentStreak = 0;
-                }
-
-                 document.getElementById('streak').textContent = currentStreak;
-
-                if (dailyData) {
-                    document.getElementById('dailyNote').value = dailyData.note || '';
-                    if (dailyData.checkedIn) {
-                        document.getElementById('checkInButton').disabled = true;
-                        document.getElementById('checkInButton').textContent = 'Checked In Today';
-                         // Ensure streak reflects today's check-in if necessary
-                         if (lastCheckinDate === todayDate) {
-                             document.getElementById('streak').textContent = currentStreak;
-                         }
-                    }
-                } else {
-                     document.getElementById('dailyNote').value = '';
-                     document.getElementById('checkInButton').disabled = false;
-                     document.getElementById('checkInButton').textContent = 'Mark Day Started';
-                }
-
-
-            } catch (error) {
-                console.error("Error loading initial data:", error);
-                 document.getElementById('streak').textContent = 'Error';
-            }
-        }
-
-        async function handleCheckIn() {
-            const todayDate = getTodayDateString();
-            const checkInButton = document.getElementById('checkInButton');
-            checkInButton.disabled = true; // Disable immediately
-
-            try {
-                let streakInfo = await getAppState(STREAK_KEY);
-                let currentStreak = 0;
-                let lastCheckinDate = null;
-
-                 if (streakInfo) {
-                    currentStreak = streakInfo.value.current || 0;
-                    lastCheckinDate = streakInfo.value.lastCheckinDate;
+                 } else {
+                     DOMElements.dailyNote.value = '';
+                     DOMElements.checkInButton.disabled = false;
+                     DOMElements.checkInButton.textContent = 'Mark Day Started';
                  }
 
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                const yesterdayDate = yesterday.toISOString().split('T')[0];
+                 // Load Streak
+                 const streakInfo = await getFromDB(APP_STATE_STORE, STREAK_KEY);
+                 let currentStreak = 0;
+                 let lastCheckinDate = null;
 
-                if (lastCheckinDate === yesterdayDate) {
-                    currentStreak++; // Increment streak
-                } else if (lastCheckinDate !== todayDate) {
-                    currentStreak = 1; // Reset streak
-                } // If lastCheckinDate is today, streak already counted
+                 if (streakInfo) {
+                     currentStreak = streakInfo.value.current || 0;
+                     lastCheckinDate = streakInfo.value.lastCheckinDate;
+                 }
 
-                await setAppState(STREAK_KEY, { current: currentStreak, lastCheckinDate: todayDate });
-                document.getElementById('streak').textContent = currentStreak;
+                 // Verify and update streak based on dates
+                 const yesterday = new Date();
+                 yesterday.setDate(yesterday.getDate() - 1);
+                 const yesterdayDate = yesterday.toISOString().split('T')[0];
 
-                let dailyData = await getDailyData(todayDate);
-                if (!dailyData) {
-                    dailyData = { date: todayDate, checkedIn: true, note: '' };
-                } else {
-                    dailyData.checkedIn = true;
-                }
-                await saveDailyData(dailyData);
+                 // If last check-in was neither today nor yesterday, reset streak unless already checked-in today
+                 if (lastCheckinDate && lastCheckinDate !== todayDate && lastCheckinDate !== yesterdayDate) {
+                     if (!dailyData || !dailyData.checkedIn) {
+                         currentStreak = 0;
+                         await saveToDB(APP_STATE_STORE, { key: STREAK_KEY, value: { current: 0, lastCheckinDate: null } });
+                         console.log("Streak reset due to missed day(s).");
+                     }
+                 } else if (!lastCheckinDate && (!dailyData || !dailyData.checkedIn)) {
+                     // No history and not checked-in today
+                     currentStreak = 0;
+                 }
+                  DOMElements.streak.textContent = currentStreak;
 
-                checkInButton.textContent = 'Checked In Today';
-                console.log("Checked in for", todayDate, "New streak:", currentStreak);
 
-            } catch (error) {
-                console.error("Error during check-in:", error);
-                checkInButton.disabled = false; // Re-enable on error
-                alert("Error checking in. Please try again.");
-            }
+                 // Load Location Settings
+                 const locationInfo = await getFromDB(APP_STATE_STORE, LOCATION_KEY);
+                 let lat = null, lon = null;
+                 if (locationInfo && locationInfo.value) {
+                    lat = locationInfo.value.latitude;
+                    lon = locationInfo.value.longitude;
+                    DOMElements.latitudeInput.value = lat;
+                    DOMElements.longitudeInput.value = lon;
+                 }
+                 await updatePrayerTimesUI(lat, lon); // Update prayer times display
+
+
+             } catch (error) {
+                 console.error("Error loading initial data:", error);
+                 DOMElements.streakStatus.textContent = 'Error loading data';
+                 showToast("Error loading saved data.");
+             }
+         }
+
+
+        // --- Event Handlers ---
+        async function handleCheckIn() {
+             const todayDate = getTodayDateString();
+             DOMElements.checkInButton.disabled = true; // Optimistic disabling
+
+             try {
+                 let streakInfo = await getFromDB(APP_STATE_STORE, STREAK_KEY);
+                 let currentStreak = 0;
+                 let lastCheckinDate = null;
+                 if (streakInfo) {
+                     currentStreak = streakInfo.value.current || 0;
+                     lastCheckinDate = streakInfo.value.lastCheckinDate;
+                 }
+
+                 const yesterday = new Date();
+                 yesterday.setDate(yesterday.getDate() - 1);
+                 const yesterdayDate = yesterday.toISOString().split('T')[0];
+
+                 if (lastCheckinDate === yesterdayDate) {
+                     currentStreak++;
+                 } else if (lastCheckinDate !== todayDate) {
+                     currentStreak = 1; // Start new streak
+                 }
+                 // If lastCheckinDate is today, don't increment again.
+
+                 await saveToDB(APP_STATE_STORE, { key: STREAK_KEY, value: { current: currentStreak, lastCheckinDate: todayDate } });
+                 DOMElements.streak.textContent = currentStreak;
+
+                 let dailyData = await getFromDB(DAILY_DATA_STORE, todayDate);
+                 if (!dailyData) {
+                     dailyData = { date: todayDate, checkedIn: true, note: DOMElements.dailyNote.value || '' };
+                 } else {
+                     dailyData.checkedIn = true;
+                 }
+                 await saveToDB(DAILY_DATA_STORE, dailyData);
+
+                 DOMElements.checkInButton.textContent = 'Checked In Today';
+                 showToast(`Checked in! Streak: ${currentStreak} days.`);
+
+             } catch (error) {
+                 console.error("Error during check-in:", error);
+                 DOMElements.checkInButton.disabled = false; // Rollback disabling
+                 showToast("Error checking in. Please try again.");
+             }
         }
 
         async function handleSaveNote() {
-            const todayDate = getTodayDateString();
-            const noteText = document.getElementById('dailyNote').value;
+             const todayDate = getTodayDateString();
+             const noteText = DOMElements.dailyNote.value;
 
-            try {
-                let dailyData = await getDailyData(todayDate);
-                if (!dailyData) {
+             try {
+                 let dailyData = await getFromDB(DAILY_DATA_STORE, todayDate);
+                 if (!dailyData) {
                      dailyData = { date: todayDate, checkedIn: false, note: noteText };
                  } else {
                      dailyData.note = noteText;
                  }
-                await saveDailyData(dailyData);
-                 console.log("Note saved for", todayDate);
-                 alert("Note saved successfully!");
+                 await saveToDB(DAILY_DATA_STORE, dailyData);
+                 showToast("Note saved successfully!");
              } catch (error) {
                  console.error("Error saving note:", error);
-                 alert("Error saving note. Please try again.");
+                 showToast("Error saving note. Please try again.");
              }
         }
 
-         async function loadHistory() {
-            const historyEntriesDiv = document.getElementById('historyEntries');
-            historyEntriesDiv.innerHTML = 'Loading history...'; // Show loading state
+         async function handleSaveSettings() {
+             const lat = parseFloat(DOMElements.latitudeInput.value);
+             const lon = parseFloat(DOMElements.longitudeInput.value);
 
-            try {
-                const allData = await getAllDailyData();
-                if (allData && allData.length > 0) {
-                    historyEntriesDiv.innerHTML = ''; // Clear loading state
-                    allData.forEach(entry => {
-                        const entryDiv = document.createElement('div');
-                        entryDiv.classList.add('history-entry');
+             if (isNaN(lat) || isNaN(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+                 showToast("Invalid Latitude (-90 to 90) or Longitude (-180 to 180).");
+                 return;
+             }
 
-                        const dateStrong = document.createElement('strong');
-                        dateStrong.textContent = `Date: ${entry.date}`;
-                        entryDiv.appendChild(dateStrong);
+             try {
+                 await saveToDB(APP_STATE_STORE, { key: LOCATION_KEY, value: { latitude: lat, longitude: lon } });
+                 await updatePrayerTimesUI(lat, lon);
+                 showToast("Location saved successfully.");
+             } catch (error) {
+                 console.error("Error saving settings:", error);
+                 showToast("Error saving settings.");
+             }
+         }
 
-                         const statusSpan = document.createElement('span');
-                         statusSpan.textContent = ` (Checked In: ${entry.checkedIn ? 'Yes' : 'No'})`;
-                         entryDiv.appendChild(statusSpan);
+         async function loadAndDisplayHistory(searchTerm = '') {
+             const historyEntriesDiv = DOMElements.historyEntries;
+             historyEntriesDiv.innerHTML = 'Loading history...';
 
-                        if (entry.note) {
-                             const noteP = document.createElement('p');
-                             noteP.classList.add('note');
-                             noteP.textContent = `Note: ${entry.note}`;
-                             entryDiv.appendChild(noteP);
-                         }
+             try {
+                 if (currentHistoryData.length === 0 && searchTerm === '') {
+                     currentHistoryData = await getAllFromDB(DAILY_DATA_STORE);
+                     currentHistoryData.sort((a, b) => b.date.localeCompare(a.date)); // Sort descending
+                 }
 
-                        historyEntriesDiv.appendChild(entryDiv);
-                    });
-                } else {
-                    historyEntriesDiv.textContent = 'No past entries found.';
-                }
-            } catch (error) {
-                console.error("Error loading history:", error);
-                historyEntriesDiv.textContent = 'Error loading history.';
-            }
+                 const filteredData = searchTerm
+                     ? currentHistoryData.filter(entry =>
+                         entry.date.includes(searchTerm) || (entry.note && entry.note.toLowerCase().includes(searchTerm.toLowerCase()))
+                       )
+                     : currentHistoryData;
+
+                 if (filteredData && filteredData.length > 0) {
+                     historyEntriesDiv.innerHTML = '';
+                     filteredData.forEach(entry => {
+                         const entryDiv = document.createElement('div');
+                         entryDiv.classList.add('history-entry');
+                         entryDiv.innerHTML = `
+                             <strong>Date: ${entry.date}</strong>
+                             <span> (Checked In: ${entry.checkedIn ? 'Yes' : 'No'})</span>
+                             ${entry.note ? `<p class="note">Note: ${entry.note.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>` : ''}
+                         `;
+                         historyEntriesDiv.appendChild(entryDiv);
+                     });
+                 } else {
+                     historyEntriesDiv.textContent = searchTerm ? 'No matching entries found.' : 'No past entries found.';
+                 }
+             } catch (error) {
+                 console.error("Error loading history:", error);
+                 historyEntriesDiv.textContent = 'Error loading history.';
+                 currentHistoryData = []; // Clear cache on error
+             }
+         }
+
+        function handleHistorySearch() {
+            const searchTerm = DOMElements.historySearchInput.value;
+            loadAndDisplayHistory(searchTerm);
         }
 
-        function toggleHistory() {
-            const historyContent = document.getElementById('historyContent');
-            const isHidden = historyContent.classList.toggle('hidden');
-            if (!isHidden) {
-                loadHistory(); // Load or refresh history when shown
-            }
+         async function handleExportData() {
+             try {
+                 const dailyData = await getAllFromDB(DAILY_DATA_STORE);
+                 const appStateData = await getAllFromDB(APP_STATE_STORE);
+
+                 const exportObj = {
+                     [DAILY_DATA_STORE]: dailyData,
+                     [APP_STATE_STORE]: appStateData
+                 };
+
+                 const dataStr = JSON.stringify(exportObj, null, 2);
+                 const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                 const url = URL.createObjectURL(dataBlob);
+                 const link = document.createElement('a');
+                 link.href = url;
+                 link.download = `daily_blessings_backup_${getTodayDateString()}.json`;
+                 document.body.appendChild(link);
+                 link.click();
+                 document.body.removeChild(link);
+                 URL.revokeObjectURL(url);
+                 showToast("Data exported successfully.");
+             } catch (error) {
+                 console.error("Error exporting data:", error);
+                 showToast("Error exporting data.");
+             }
+         }
+
+         function handleImportData() {
+             DOMElements.importFileInput.click(); // Trigger file input
+         }
+
+         async function processImportFile(event) {
+             const file = event.target.files[0];
+             if (!file) return;
+
+             const reader = new FileReader();
+             reader.onload = async (e) => {
+                 try {
+                     const importObj = JSON.parse(e.target.result);
+
+                     // Basic validation
+                     if (!importObj || typeof importObj !== 'object' || !Array.isArray(importObj[DAILY_DATA_STORE]) || !Array.isArray(importObj[APP_STATE_STORE])) {
+                         throw new Error("Invalid file format.");
+                     }
+
+                     if (!confirm("This will replace all current data (notes, check-ins, streak, location) with the imported data. Are you sure?")) {
+                         return;
+                     }
+
+                     // Clear existing data
+                     await clearStore(DAILY_DATA_STORE);
+                     await clearStore(APP_STATE_STORE);
+
+                     // Import new data
+                     const dailyDataPromises = importObj[DAILY_DATA_STORE].map(item => saveToDB(DAILY_DATA_STORE, item));
+                     const appStatePromises = importObj[APP_STATE_STORE].map(item => saveToDB(APP_STATE_STORE, item));
+
+                     await Promise.all([...dailyDataPromises, ...appStatePromises]);
+
+                     // Reload UI
+                     currentHistoryData = []; // Clear history cache
+                     await loadInitialData();
+                     if (!DOMElements.historySection.classList.contains('hidden')) {
+                         await loadAndDisplayHistory();
+                     }
+                     showToast("Data imported successfully. App reloaded.");
+
+                 } catch (error) {
+                     console.error("Error importing data:", error);
+                     showToast(`Import failed: ${error.message}. Make sure it's a valid backup file.`);
+                 } finally {
+                    // Reset file input value to allow importing the same file again if needed
+                    DOMElements.importFileInput.value = '';
+                 }
+             };
+             reader.readAsText(file);
+         }
+
+
+        // --- Tab Handling ---
+        function openTab(event, tabName) {
+            DOMElements.tabContents.forEach(tc => tc.classList.remove('active'));
+            DOMElements.tabs.forEach(tl => tl.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
 
-        // Initialization
+        // --- Initialization ---
         window.onload = async () => {
             displayDailyContent();
 
-            document.getElementById('checkInButton').addEventListener('click', handleCheckIn);
-            document.getElementById('saveNoteButton').addEventListener('click', handleSaveNote);
-            document.getElementById('toggleHistoryButton').addEventListener('click', toggleHistory);
+            // Attach Event Listeners
+            DOMElements.checkInButton.addEventListener('click', handleCheckIn);
+            DOMElements.saveNoteButton.addEventListener('click', handleSaveNote);
+            DOMElements.toggleSettingsButton.addEventListener('click', () => toggleVisibility(DOMElements.settingsSection));
+            DOMElements.saveSettingsButton.addEventListener('click', handleSaveSettings);
+            DOMElements.toggleHistoryButton.addEventListener('click', () => {
+                toggleVisibility(DOMElements.historySection);
+                 if (!DOMElements.historySection.classList.contains('hidden')) {
+                     currentHistoryData = []; // Force refresh when opening
+                     loadAndDisplayHistory();
+                 }
+            });
+            DOMElements.historySearchInput.addEventListener('input', handleHistorySearch);
+            DOMElements.exportDataButton.addEventListener('click', handleExportData);
+            DOMElements.importDataButton.addEventListener('click', handleImportData);
+            DOMElements.importFileInput.addEventListener('change', processImportFile);
+
 
             try {
                 await initDB();
                 await loadInitialData();
+                 console.log("App initialized successfully.");
             } catch (error) {
                 console.error("Initialization failed:", error);
-                alert("Failed to initialize the application. Data storage might not work.");
+                showToast("Failed to initialize the application. Data storage might not work reliably.");
+                 // Fallback display if DB fails
+                 DOMElements.streakStatus.textContent = 'Error loading data';
+                 DOMElements.prayerTimesDiv.innerHTML = 'Could not load prayer times.';
+                 DOMElements.qiblaDirectionDiv.textContent = 'Could not load Qibla.';
             }
         };
+        // --- END: App Logic ---
 
     </script>
 
