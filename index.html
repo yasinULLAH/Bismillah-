@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Your Day with the Name of Allah (ﷻ)</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+            --card-bg: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+            font-size: 1.3em;
+        }
+
+        .card p {
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        .quote-card {
+            border-left-color: #2ecc71; /* Green */
+        }
+
+        .quote-card h2 {
+            color: #27ae60;
+        }
+
+        .check-in-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #checkInButton {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #checkInButton:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        #checkInButton:not(:disabled):hover {
+            background-color: #2980b9;
+        }
+
+        #streak {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-left: 10px;
+        }
+
+        .notes-section textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+
+        .notes-section button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .notes-section button:hover {
+            background-color: #27ae60;
+        }
+
+        .history-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #toggleHistoryButton {
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        #toggleHistoryButton:hover {
+            background-color: #8e44ad;
+        }
+
+        #historyContent {
+            max-height: 300px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: left;
+            border: 1px solid #eee;
+        }
+
+        .history-entry {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .history-entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .history-entry strong {
+            color: var(--primary-color);
+        }
+
+        .history-entry .note {
+            margin-top: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Start your day with the Name of Allah (ﷻ)</h1>
+
+        <div id="dailyNameCard" class="card">
+            <h2 id="allahName"></h2>
+            <p id="allahNameMeaning"></p>
+        </div>
+
+        <div id="dailyQuoteCard" class="card quote-card">
+            <h2 id="quoteType"></h2>
+            <p id="quoteText"></p>
+        </div>
+
+        <div class="check-in-section">
+            <button id="checkInButton">Mark Day Started</button>
+            <span id="streakStatus">Streak: <span id="streak">0</span> days</span>
+        </div>
+
+        <div class="notes-section">
+            <h2>Daily Reflection</h2>
+            <textarea id="dailyNote" placeholder="Write your reflection for today..."></textarea>
+            <button id="saveNoteButton">Save Note</button>
+        </div>
+
+    </div>
+
+    <div class="history-section container">
+         <button id="toggleHistoryButton">Show/Hide History</button>
+         <div id="historyContent" class="hidden">
+             <h2>Past Entries</h2>
+             <div id="historyEntries">Loading history...</div>
+         </div>
+    </div>
+
+    <script>
+        const DB_NAME = 'DailyBlessingsDB';
+        const DB_VERSION = 1;
+        const DAILY_DATA_STORE = 'dailyData';
+        const APP_STATE_STORE = 'appState';
+        const STREAK_KEY = 'streakInfo';
+
+        let db;
+
+        const namesOfAllah = [
+            { name: "Ar-Rahman", meaning: "The Beneficent" }, { name: "Ar-Rahim", meaning: "The Merciful" },
+            { name: "Al-Malik", meaning: "The King" }, { name: "Al-Quddus", meaning: "The Holy" },
+            { name: "As-Salam", meaning: "The Source of Peace" }, { name: "Al-Mu'min", meaning: "The Inspirer of Faith" },
+            { name: "Al-Muhaymin", meaning: "The Guardian" }, { name: "Al-Aziz", meaning: "The Victorious" },
+            { name: "Al-Jabbar", meaning: "The Compeller" }, { name: "Al-Mutakabbir", meaning: "The Greatest" },
+            { name: "Al-Khaliq", meaning: "The Creator" }, { name: "Al-Bari'", meaning: "The Maker of Order" },
+            { name: "Al-Musawwir", meaning: "The Shaper of Beauty" }, { name: "Al-Ghaffar", meaning: "The Forgiving" },
+            { name: "Al-Qahhar", meaning: "The Subduer" }, { name: "Al-Wahhab", meaning: "The Giver of All" },
+            { name: "Ar-Razzaq", meaning: "The Sustainer" }, { name: "Al-Fattah", meaning: "The Opener" },
+            { name: "Al-'Alim", meaning: "The Knower of All" }, { name: "Al-Qabid", meaning: "The Constrictor" },
+            { name: "Al-Basit", meaning: "The Reliever" }, { name: "Al-Khafid", meaning: "The Abaser" },
+            { name: "Ar-Rafi'", meaning: "The Exalter" }, { name: "Al-Mu'izz", meaning: "The Bestower of Honors" },
+            { name: "Al-Mudhill", meaning: "The Humiliator" }, { name: "As-Sami", meaning: "The Hearer of All" },
+            { name: "Al-Basir", meaning: "The Seer of All" }, { name: "Al-Hakam", meaning: "The Judge" },
+            { name: "Al-'Adl", meaning: "The Just" }, { name: "Al-Latif", meaning: "The Subtle One" },
+            { name: "Al-Khabir", meaning: "The All-Aware" }, { name: "Al-Halim", meaning: "The Forebearing" },
+            { name: "Al-'Azim", meaning: "The Magnificent" }, { name: "Al-Ghafur", meaning: "The Forgiver and Hider of Faults" },
+            { name: "Ash-Shakur", meaning: "The Rewarder of Thankfulness" }, { name: "Al-'Ali", meaning: "The Highest" },
+            { name: "Al-Kabir", meaning: "The Greatest" }, { name: "Al-Hafiz", meaning: "The Preserver" },
+            { name: "Al-Muqit", meaning: "The Nourisher" }, { name: "Al-Hasib", meaning: "The Accounter" },
+            { name: "Al-Jalil", meaning: "The Mighty" }, { name: "Al-Karim", meaning: "The Generous" },
+            { name: "Ar-Raqib", meaning: "The Watchful One" }, { name: "Al-Mujib", meaning: "The Responder to Prayer" },
+            { name: "Al-Wasi'", meaning: "The All-Comprehending" }, { name: "Al-Hakim", meaning: "The Perfectly Wise" },
+            { name: "Al-Wadud", meaning: "The Loving One" }, { name: "Al-Majid", meaning: "The Majestic One" },
+            { name: "Al-Ba'ith", meaning: "The Resurrector" }, { name: "Ash-Shahid", meaning: "The Witness" },
+            { name: "Al-Haqq", meaning: "The Truth" }, { name: "Al-Wakil", meaning: "The Trustee" },
+            { name: "Al-Qawi", meaning: "The Possessor of All Strength" }, { name: "Al-Matin", meaning: "The Forceful One" },
+            { name: "Al-Wali", meaning: "The Governor" }, { name: "Al-Hamid", meaning: "The Praised One" },
+            { name: "Al-Muhsi", meaning: "The Appraiser" }, { name: "Al-Mubdi", meaning: "The Originator" },
+            { name: "Al-Mu'id", meaning: "The Restorer" }, { name: "Al-Muhyi", meaning: "The Giver of Life" },
+            { name: "Al-Mumit", meaning: "The Taker of Life" }, { name: "Al-Hayy", meaning: "The Ever Living One" },
+            { name: "Al-Qayyum", meaning: "The Self-Existing One" }, { name: "Al-Wajid", meaning: "The Finder" },
+            { name: "Al-Majid", meaning: "The Glorious" }, { name: "Al-Wahid", meaning: "The Unique, The Single" },
+            { name: "Al-Ahad", meaning: "The One" }, { name: "As-Samad", meaning: "The Satisfier of All Needs" },
+            { name: "Al-Qadir", meaning: "The All Powerful" }, { name: "Al-Muqtadir", meaning: "The Creator of All Power" },
+            { name: "Al-Muqaddim", meaning: "The Expediter" }, { name: "Al-Mu'akhkhir", meaning: "The Delayer" },
+            { name: "Al-Awwal", meaning: "The First" }, { name: "Al-Akhir", meaning: "The Last" },
+            { name: "Az-Zahir", meaning: "The Manifest One" }, { name: "Al-Batin", meaning: "The Hidden One" },
+            { name: "Al-Wali", meaning: "The Protecting Friend" }, { name: "Al-Muta'ali", meaning: "The Supreme One" },
+            { name: "Al-Barr", meaning: "The Doer of Good" }, { name: "At-Tawwab", meaning: "The Guide to Repentance" },
+            { name: "Al-Muntaqim", meaning: "The Avenger" }, { name: "Al-Afu", meaning: "The Pardoner" },
+            { name: "Ar-Ra'uf", meaning: "The Clement" }, { name: "Malik-al-Mulk", meaning: "The Owner of All" },
+            { name: "Dhul-Jalali Wal-Ikram", meaning: "The Lord of Majesty and Bounty" }, { name: "Al-Muqsit", meaning: "The Equitable One" },
+            { name: "Al-Jami", meaning: "The Gatherer" }, { name: "Al-Ghani", meaning: "The Rich One" },
+            { name: "Al-Mughni", meaning: "The Enricher" }, { name: "Al-Mani'", meaning: "The Preventer of Harm" },
+            { name: "Ad-Darr", meaning: "The Creator of The Harmful" }, { name: "An-Nafi", meaning: "The Creator of Good" },
+            { name: "An-Nur", meaning: "The Light" }, { name: "Al-Hadi", meaning: "The Guide" },
+            { name: "Al-Badi", meaning: "The Originator" }, { name: "Al-Baqi", meaning: "The Everlasting One" },
+            { name: "Al-Warith", meaning: "The Inheritor of All" }, { name: "Ar-Rashid", meaning: "The Righteous Teacher" },
+            { name: "As-Sabur", meaning: "The Patient One" }
+        ];
+
+        const dailyContent = [
+            { type: "Ayah", text: "Indeed, Allah is with the patient. - Quran (2:153)" },
+            { type: "Hadith", text: "He who does not thank the people is not thankful to Allah. - Tirmidhi" },
+            { type: "Quote", text: "Dua (supplication) is the weapon of the believer." },
+            { type: "Ayah", text: "And seek help through patience and prayer. - Quran (2:45)" },
+            { type: "Hadith", text: "Kindness is a mark of faith, and whoever is not kind has no faith. - Muslim" },
+            { type: "Quote", text: "The strongest among you is the one who controls his anger. - Prophet Muhammad (ﷺ)" },
+            { type: "Ayah", text: "Do good deeds. Verily, Allah loves the doers of good. - Quran (2:195)" },
+            { type: "Hadith", text: "The believer's shade on the Day of Resurrection will be his charity. - Tirmidhi" },
+            { type: "Quote", text: "Knowledge without action is like a tree without fruit." },
+            { type: "Ayah", text: "Call upon Me; I will respond to you. - Quran (40:60)" },
+            { type: "Hadith", text: "Modesty is part of faith. - Bukhari" },
+            { type: "Quote", text: "Patience is the key to relief." },
+            { type: "Ayah", text: "And He is with you wherever you are. - Quran (57:4)" },
+            { type: "Hadith", text: "None of you truly believes until he loves for his brother what he loves for himself. - Bukhari" },
+            { type: "Quote", text: "Control your tongue. It can lead you to Paradise or Hellfire." },
+             { type: "Ayah", text: "Indeed, the most noble of you in the sight of Allah is the most righteous of you. - Quran (49:13)" },
+            { type: "Hadith", text: "A man's true wealth is the good he does in this world. - Prophet Muhammad (ﷺ)" },
+            { type: "Quote", text: "Trust in Allah, but tie your camel." },
+            { type: "Ayah", text: "So which of the favors of your Lord would you deny? - Quran (55:13)" },
+            { type: "Hadith", text: "Make things easy for people and do not make them difficult. - Bukhari" }
+        ];
+
+        function getTodayDateString() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getDayOfYear(date = new Date()) {
+            const start = new Date(date.getFullYear(), 0, 0);
+            const diff = date - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        }
+
+        function displayDailyContent() {
+            const dayIndex = getDayOfYear();
+            const nameIndex = dayIndex % namesOfAllah.length;
+            const contentIndex = dayIndex % dailyContent.length;
+
+            const selectedName = namesOfAllah[nameIndex];
+            const selectedContent = dailyContent[contentIndex];
+
+            document.getElementById('allahName').textContent = selectedName.name;
+            document.getElementById('allahNameMeaning').textContent = selectedName.meaning;
+
+            document.getElementById('quoteType').textContent = selectedContent.type;
+            document.getElementById('quoteText').textContent = selectedContent.text;
+        }
+
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+                request.onerror = (event) => {
+                    console.error("Database error:", event.target.errorCode);
+                    reject("Database error: " + event.target.errorCode);
+                };
+
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    console.log("Database opened successfully");
+                    resolve(db);
+                };
+
+                request.onupgradeneeded = (event) => {
+                    db = event.target.result;
+                    if (!db.objectStoreNames.contains(DAILY_DATA_STORE)) {
+                        db.createObjectStore(DAILY_DATA_STORE, { keyPath: 'date' });
+                        console.log(`Object store ${DAILY_DATA_STORE} created.`);
+                    }
+                     if (!db.objectStoreNames.contains(APP_STATE_STORE)) {
+                        db.createObjectStore(APP_STATE_STORE, { keyPath: 'key' });
+                         console.log(`Object store ${APP_STATE_STORE} created.`);
+                    }
+                };
+            });
+        }
+
+         function getAppState(key) {
+            return new Promise((resolve, reject) => {
+                if (!db) return reject("DB not initialized");
+                const transaction = db.transaction([APP_STATE_STORE], 'readonly');
+                const store = transaction.objectStore(APP_STATE_STORE);
+                const request = store.get(key);
+
+                request.onsuccess = (event) => {
+                    resolve(event.target.result);
+                };
+                request.onerror = (event) => {
+                    console.error("Error fetching app state:", event.target.error);
+                    reject(event.target.error);
+                };
+            });
+        }
+
+        function setAppState(key, value) {
+            return new Promise((resolve, reject) => {
+                if (!db) return reject("DB not initialized");
+                const transaction = db.transaction([APP_STATE_STORE], 'readwrite');
+                const store = transaction.objectStore(APP_STATE_STORE);
+                const request = store.put({ key: key, value: value });
+
+                request.onsuccess = () => {
+                    resolve();
+                };
+                request.onerror = (event) => {
+                    console.error("Error setting app state:", event.target.error);
+                    reject(event.target.error);
+                };
+            });
+        }
+
+
+        function getDailyData(date) {
+            return new Promise((resolve, reject) => {
+                if (!db) return reject("DB not initialized");
+                const transaction = db.transaction([DAILY_DATA_STORE], 'readonly');
+                const store = transaction.objectStore(DAILY_DATA_STORE);
+                const request = store.get(date);
+
+                request.onsuccess = (event) => {
+                    resolve(event.target.result);
+                };
+                request.onerror = (event) => {
+                    console.error("Error fetching daily data:", event.target.error);
+                    reject(event.target.error);
+                };
+            });
+        }
+
+        function saveDailyData(data) {
+             return new Promise((resolve, reject) => {
+                if (!db) return reject("DB not initialized");
+                const transaction = db.transaction([DAILY_DATA_STORE], 'readwrite');
+                const store = transaction.objectStore(DAILY_DATA_STORE);
+                const request = store.put(data);
+
+                request.onsuccess = () => {
+                    resolve();
+                };
+                request.onerror = (event) => {
+                     console.error("Error saving daily data:", event.target.error);
+                    reject(event.target.error);
+                };
+            });
+        }
+
+         function getAllDailyData() {
+            return new Promise((resolve, reject) => {
+                if (!db) return reject("DB not initialized");
+                const transaction = db.transaction([DAILY_DATA_STORE], 'readonly');
+                const store = transaction.objectStore(DAILY_DATA_STORE);
+                const request = store.getAll();
+
+                request.onsuccess = (event) => {
+                    resolve(event.target.result.sort((a, b) => b.date.localeCompare(a.date))); // Sort descending
+                };
+                request.onerror = (event) => {
+                    console.error("Error fetching all daily data:", event.target.error);
+                    reject(event.target.error);
+                };
+            });
+        }
+
+         async function loadInitialData() {
+            const todayDate = getTodayDateString();
+            try {
+                const dailyData = await getDailyData(todayDate);
+                const streakInfo = await getAppState(STREAK_KEY);
+
+                let currentStreak = 0;
+                let lastCheckinDate = null;
+
+                if (streakInfo) {
+                    currentStreak = streakInfo.value.current || 0;
+                    lastCheckinDate = streakInfo.value.lastCheckinDate;
+                }
+
+                // Update streak based on last checkin date
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayDate = yesterday.toISOString().split('T')[0];
+
+                if (lastCheckinDate && lastCheckinDate !== todayDate && lastCheckinDate !== yesterdayDate) {
+                     // Missed more than a day, reset streak if not checked in today
+                     if (!dailyData || !dailyData.checkedIn) {
+                        currentStreak = 0;
+                        await setAppState(STREAK_KEY, { current: 0, lastCheckinDate: null });
+                     }
+                } else if (lastCheckinDate === yesterdayDate && (!dailyData || !dailyData.checkedIn)) {
+                     // Last check-in was yesterday, but not checked in today yet. Streak remains until check-in.
+                } else if (!lastCheckinDate && (!dailyData || !dailyData.checkedIn)) {
+                     // No check-in history, streak is 0
+                    currentStreak = 0;
+                }
+
+                 document.getElementById('streak').textContent = currentStreak;
+
+                if (dailyData) {
+                    document.getElementById('dailyNote').value = dailyData.note || '';
+                    if (dailyData.checkedIn) {
+                        document.getElementById('checkInButton').disabled = true;
+                        document.getElementById('checkInButton').textContent = 'Checked In Today';
+                         // Ensure streak reflects today's check-in if necessary
+                         if (lastCheckinDate === todayDate) {
+                             document.getElementById('streak').textContent = currentStreak;
+                         }
+                    }
+                } else {
+                     document.getElementById('dailyNote').value = '';
+                     document.getElementById('checkInButton').disabled = false;
+                     document.getElementById('checkInButton').textContent = 'Mark Day Started';
+                }
+
+
+            } catch (error) {
+                console.error("Error loading initial data:", error);
+                 document.getElementById('streak').textContent = 'Error';
+            }
+        }
+
+        async function handleCheckIn() {
+            const todayDate = getTodayDateString();
+            const checkInButton = document.getElementById('checkInButton');
+            checkInButton.disabled = true; // Disable immediately
+
+            try {
+                let streakInfo = await getAppState(STREAK_KEY);
+                let currentStreak = 0;
+                let lastCheckinDate = null;
+
+                 if (streakInfo) {
+                    currentStreak = streakInfo.value.current || 0;
+                    lastCheckinDate = streakInfo.value.lastCheckinDate;
+                 }
+
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayDate = yesterday.toISOString().split('T')[0];
+
+                if (lastCheckinDate === yesterdayDate) {
+                    currentStreak++; // Increment streak
+                } else if (lastCheckinDate !== todayDate) {
+                    currentStreak = 1; // Reset streak
+                } // If lastCheckinDate is today, streak already counted
+
+                await setAppState(STREAK_KEY, { current: currentStreak, lastCheckinDate: todayDate });
+                document.getElementById('streak').textContent = currentStreak;
+
+                let dailyData = await getDailyData(todayDate);
+                if (!dailyData) {
+                    dailyData = { date: todayDate, checkedIn: true, note: '' };
+                } else {
+                    dailyData.checkedIn = true;
+                }
+                await saveDailyData(dailyData);
+
+                checkInButton.textContent = 'Checked In Today';
+                console.log("Checked in for", todayDate, "New streak:", currentStreak);
+
+            } catch (error) {
+                console.error("Error during check-in:", error);
+                checkInButton.disabled = false; // Re-enable on error
+                alert("Error checking in. Please try again.");
+            }
+        }
+
+        async function handleSaveNote() {
+            const todayDate = getTodayDateString();
+            const noteText = document.getElementById('dailyNote').value;
+
+            try {
+                let dailyData = await getDailyData(todayDate);
+                if (!dailyData) {
+                     dailyData = { date: todayDate, checkedIn: false, note: noteText };
+                 } else {
+                     dailyData.note = noteText;
+                 }
+                await saveDailyData(dailyData);
+                 console.log("Note saved for", todayDate);
+                 alert("Note saved successfully!");
+             } catch (error) {
+                 console.error("Error saving note:", error);
+                 alert("Error saving note. Please try again.");
+             }
+        }
+
+         async function loadHistory() {
+            const historyEntriesDiv = document.getElementById('historyEntries');
+            historyEntriesDiv.innerHTML = 'Loading history...'; // Show loading state
+
+            try {
+                const allData = await getAllDailyData();
+                if (allData && allData.length > 0) {
+                    historyEntriesDiv.innerHTML = ''; // Clear loading state
+                    allData.forEach(entry => {
+                        const entryDiv = document.createElement('div');
+                        entryDiv.classList.add('history-entry');
+
+                        const dateStrong = document.createElement('strong');
+                        dateStrong.textContent = `Date: ${entry.date}`;
+                        entryDiv.appendChild(dateStrong);
+
+                         const statusSpan = document.createElement('span');
+                         statusSpan.textContent = ` (Checked In: ${entry.checkedIn ? 'Yes' : 'No'})`;
+                         entryDiv.appendChild(statusSpan);
+
+                        if (entry.note) {
+                             const noteP = document.createElement('p');
+                             noteP.classList.add('note');
+                             noteP.textContent = `Note: ${entry.note}`;
+                             entryDiv.appendChild(noteP);
+                         }
+
+                        historyEntriesDiv.appendChild(entryDiv);
+                    });
+                } else {
+                    historyEntriesDiv.textContent = 'No past entries found.';
+                }
+            } catch (error) {
+                console.error("Error loading history:", error);
+                historyEntriesDiv.textContent = 'Error loading history.';
+            }
+        }
+
+        function toggleHistory() {
+            const historyContent = document.getElementById('historyContent');
+            const isHidden = historyContent.classList.toggle('hidden');
+            if (!isHidden) {
+                loadHistory(); // Load or refresh history when shown
+            }
+        }
+
+
+        // Initialization
+        window.onload = async () => {
+            displayDailyContent();
+
+            document.getElementById('checkInButton').addEventListener('click', handleCheckIn);
+            document.getElementById('saveNoteButton').addEventListener('click', handleSaveNote);
+            document.getElementById('toggleHistoryButton').addEventListener('click', toggleHistory);
+
+            try {
+                await initDB();
+                await loadInitialData();
+            } catch (error) {
+                console.error("Initialization failed:", error);
+                alert("Failed to initialize the application. Data storage might not work.");
+            }
+        };
+
+    </script>
+
+</body>
+</html>
